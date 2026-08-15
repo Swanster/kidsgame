@@ -159,6 +159,7 @@
   }
 
   function renderEnd() {
+    clearTimeout(returnTimer);
     var maxStars = 8;
     els.stars.innerHTML = '';
     for (var i = 0; i < maxStars; i++) {
