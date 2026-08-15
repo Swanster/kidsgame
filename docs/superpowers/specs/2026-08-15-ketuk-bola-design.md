@@ -39,7 +39,7 @@ Melatih **fokus selektif dan mengikuti instruksi**: anak mengetuk bola dengan wa
 
 ## 6. Ikon & Aset
 
-- Bola: lingkaran SVG dengan **highlight kecil** (elips putih semi-transparan kiri-atas) — markup DALAM (`Ball.ballSVG`? cukup string `ballSVG(colorId)` di module → `<svg …>` lengkap? IKUTI pola binIcon: full `<svg viewBox="0 0 48 48" role="img" aria-label="Bola Merah">…</svg>`), `data-color` di tombol.
+- Bola: lingkaran SVG dengan **highlight kecil** (elips putih semi-transparan kiri-atas) — `Balls.ballSVG(colorId)` mengembalikan **string `<svg>` lengkap** (pola `binIcon` Sortir): `'<svg viewBox="0 0 48 48" role="img" aria-label="Bola {Nama}">…</svg>'`; tombol bola membawa `data-color`.
 - Banner instruksi: kata warna `<span style="color:{hex}">Merah</span>`.
 - Ikon fungsional (bintang, suara) = SVG inline; emoji HANYA dekorasi teks (title "Ketuk Bola Warna ⚽", "Sempurna! 🌟").
 - Registri: entri ke-6 `{id:'ketuk-bola', name:'Ketuk Bola Warna', maxStars:8, path:'games/ketuk-bola/index.html', icon: 3 lingkaran warna}` (SVG lengkap `aria-hidden`).
