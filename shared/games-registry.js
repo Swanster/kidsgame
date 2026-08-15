@@ -41,6 +41,13 @@
       maxStars: 8,
       path: 'games/puzzle-hewan/index.html',
       icon: '<svg viewBox="0 0 48 48" aria-hidden="true"><rect x="4" y="4" width="19" height="19" rx="4" fill="#E53935"/><rect x="25" y="4" width="19" height="19" rx="4" fill="#5AA9E6"/><rect x="4" y="25" width="19" height="19" rx="4" fill="#F9A825"/><rect x="25" y="25" width="19" height="19" rx="4" fill="#6FBF44"/></svg>'
+    },
+    {
+      id: 'ketuk-bola',
+      name: 'Ketuk Bola Warna',
+      maxStars: 8,
+      path: 'games/ketuk-bola/index.html',
+      icon: '<svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="14" cy="30" r="11" fill="#E53935" stroke="#4A3728" stroke-width="2"/><circle cx="36" cy="14" r="11" fill="#1E88E5" stroke="#4A3728" stroke-width="2"/><circle cx="32" cy="38" r="11" fill="#F9A825" stroke="#4A3728" stroke-width="2"/></svg>'
     }
   ];
   return { GAMES: GAMES };
