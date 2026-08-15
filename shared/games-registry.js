@@ -34,6 +34,13 @@
       maxStars: 8,
       path: 'games/sortir-bentuk-warna/index.html',
       icon: '<svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="16" cy="19" r="8" fill="none" stroke="#E53935" stroke-width="4"/><rect x="26" y="11" width="14" height="14" rx="3" fill="none" stroke="#1E88E5" stroke-width="4"/><path d="M24 33 l4.5 7 h-9 Z" fill="none" stroke="#F9A825" stroke-width="4" stroke-linejoin="round"/></svg>'
+    },
+    {
+      id: 'puzzle-hewan',
+      name: 'Puzzle Hewan',
+      maxStars: 8,
+      path: 'games/puzzle-hewan/index.html',
+      icon: '<svg viewBox="0 0 48 48" aria-hidden="true"><rect x="4" y="4" width="19" height="19" rx="4" fill="#E53935"/><rect x="25" y="4" width="19" height="19" rx="4" fill="#5AA9E6"/><rect x="4" y="25" width="19" height="19" rx="4" fill="#F9A825"/><rect x="25" y="25" width="19" height="19" rx="4" fill="#6FBF44"/></svg>'
     }
   ];
   return { GAMES: GAMES };
