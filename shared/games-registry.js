@@ -27,6 +27,13 @@
       maxStars: 8,
       path: 'games/berhitung/index.html',
       icon: '<svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="18" r="14" fill="none" stroke="#E53935" stroke-width="4"/><path d="M21 32 l3 5 3 -5" fill="none" stroke="#E53935" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M24 37 q-4 7 0 9" fill="none" stroke="#E53935" stroke-width="3" stroke-linecap="round"/></svg>'
+    },
+    {
+      id: 'sortir-bentuk-warna',
+      name: 'Sortir Bentuk & Warna',
+      maxStars: 8,
+      path: 'games/sortir-bentuk-warna/index.html',
+      icon: '<svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="16" cy="19" r="8" fill="none" stroke="#E53935" stroke-width="4"/><rect x="26" y="11" width="14" height="14" rx="3" fill="none" stroke="#1E88E5" stroke-width="4"/><path d="M24 33 l4.5 7 h-9 Z" fill="none" stroke="#F9A825" stroke-width="4" stroke-linejoin="round"/></svg>'
     }
   ];
   return { GAMES: GAMES };
