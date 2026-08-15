@@ -7,6 +7,10 @@
 })(typeof self !== 'undefined' ? self : this, function () {
   'use strict';
 
+  // Factory ini adalah fungsi argumen IIFE → tidak bisa melihat parameter `root`
+  // IIFE luar (closure-nya scope global). Bind secara eksplisit:
+  var root = (typeof globalThis !== 'undefined') ? globalThis : (typeof self !== 'undefined' ? self : this);
+
   var ctx = null;
   var muted = false;
 
