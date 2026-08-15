@@ -147,7 +147,7 @@ Expected: FAIL — `Cannot find module '../counting.js'`
     var rows = Math.ceil(count / cols);
     var cellW = 100 / cols;
     var cellH = 100 / rows;
-    var s = Math.min(cellW, cellH) - 8;
+    var s = Math.floor((Math.min(cellW, cellH) - 8) * 100) / 100; // bulatkan 2 desimal: formula asli gagal tes batasnya sendiri di n=3/5/6 (presisi float 100/3)
     var out = [];
     for (var i = 0; i < count; i++) {
       var c = i % cols;
