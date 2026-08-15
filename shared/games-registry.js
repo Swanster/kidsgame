@@ -20,6 +20,13 @@
       maxStars: 8,
       path: 'games/memory-match/index.html',
       icon: '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M6 26 h26 a4 4 0 0 1 4 4 v4 h-34 v-4 a4 4 0 0 1 4 -4 Z" fill="none" stroke="#E53935" stroke-width="4" stroke-linejoin="round"/><path d="M15 26 l4 -7 a3 3 0 0 1 6 0 l4 7" fill="none" stroke="#E53935" stroke-width="4" stroke-linecap="round"/><circle cx="14" cy="34" r="4.5" fill="#E53935"/><circle cx="30" cy="34" r="4.5" fill="#E53935"/><circle cx="14" cy="34" r="1.8" fill="#fff"/><circle cx="30" cy="34" r="1.8" fill="#fff"/></svg>'
+    },
+    {
+      id: 'berhitung',
+      name: 'Berhitung',
+      maxStars: 8,
+      path: 'games/berhitung/index.html',
+      icon: '<svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="18" r="14" fill="none" stroke="#E53935" stroke-width="4"/><path d="M21 32 l3 5 3 -5" fill="none" stroke="#E53935" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M24 37 q-4 7 0 9" fill="none" stroke="#E53935" stroke-width="3" stroke-linecap="round"/></svg>'
     }
   ];
   return { GAMES: GAMES };
