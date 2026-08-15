@@ -70,7 +70,7 @@ games/puzzle-hewan/
 | puzzle.js | `Puzzle.IMAGES` | 8 entri; id unik; `name` non-kosong; `svg` tanpa tag `<svg>` |
 | puzzle.js | `Puzzle.PIECES_PER_ROUND` | `[4,4,6,6,9,9,9,9]` |
 | puzzle.js | `Puzzle.layout(count)` | 4→`{cols:2,rows:2}`, 6→`{cols:3,rows:2}`, 9→`{cols:3,rows:3}`; lainnya → null |
-| puzzle.js | `Puzzle.makeBoard(imgIndex)` | `{image, pieces}`; pieces unik 1..n, koordinat `x,y` pixel 120-space membagi gambar merata, urutan diacak; index tak dikenal → null |
+| puzzle.js | `Puzzle.makeBoard(imgIndex)` | `{image, pieces}`; pieces unik 1..n, koordinat `x,y,w,h` pixel 120-space membagi gambar merata (`w=120/cols, h=120/rows`), urutan diacak; index tak dikenal → null |
 | puzzle.js | `Puzzle.pieceSVG(imgIndex, piece)` | `<svg viewBox="x y w h" role="img" aria-label="Potongan n">…gambar…<text>n</text></svg>`; index tak dikenal → null |
 | puzzle.js | `Puzzle.shuffle(arr)` | salinan, tidak mengubah input |
 | puzzle.js | `Puzzle.isRoundDone(placed, count)` | `count>0 && placed>=count` |
@@ -81,7 +81,7 @@ games/puzzle-hewan/
 
 ## 9. Kriteria Penerimaan (8)
 
-1. **Tes otomatis ≥42** (baseline 44 + tes puzzle) — `node --test` bare dari root: semua hijau.
+1. **Tes otomatis hijau semua** — baseline 44 + tes puzzle baru; `node --test` bare dari root: nol gagal.
 2. **Registri 5 game** — dashboard menampilkan 5 kartu; entri `puzzle-hewan` valid (path ada, memuat `../../shared/audio.js` dan `../../shared/profile.js`).
 3. **8 ronde & progresi** — potongan `[4,4,6,6,9,9,9,9]`; grid `2×2/2×3/3×3`; nama hewan benar per ronde (TTS + label).
 4. **Alur penuh** — potongan acak bernomor; tap slot benar → terpasang + progress maju; salah → goyang + potongan tetap; 56 pasangan/sesi tanpa macet; ronde 1–7 overlay → "Lanjut!", ronde 8 layar akhir.
