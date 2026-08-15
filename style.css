@@ -1,0 +1,170 @@
+/* style.css */
+:root {
+  --bg: #FFEFD5;
+  --card: #FFFFFF;
+  --ink: #4A3728;
+  --accent: #FF9F43;
+  --accent-dark: #E87E2E;
+  --ok: #6FBF44;
+  --soft: #FBE0C0;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { height: 100%; }
+
+body {
+  font-family: "Comic Sans MS", "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.hidden { display: none !important; }
+
+.title { font-size: 2.4rem; color: var(--accent-dark); text-align: center; }
+.subtitle { font-size: 1.3rem; text-align: center; }
+
+.btn-big {
+  font-size: 1.8rem;
+  font-family: inherit;
+  padding: 18px 44px;
+  border: none;
+  border-radius: 60px;
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 6px 0 var(--accent-dark);
+  cursor: pointer;
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+}
+.btn-big:active {
+  transform: translateY(5px);
+  box-shadow: 0 1px 0 var(--accent-dark);
+}
+
+.btn-sound {
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  font-size: 1.6rem;
+  width: 56px;
+  height: 56px;
+  border: none;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(74, 55, 40, 0.2);
+  cursor: pointer;
+}
+
+/* Round screen */
+.target-panel {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #fff;
+  border-radius: 24px;
+  padding: 10px 22px;
+  box-shadow: 0 4px 12px rgba(74, 55, 40, 0.15);
+}
+.target-svg svg { width: 72px; height: 72px; display: block; }
+.target-name { font-size: 1.6rem; font-weight: bold; color: var(--accent-dark); }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+  gap: 12px;
+  width: 100%;
+  max-width: 640px;
+  padding: 8px;
+}
+
+.card {
+  background: var(--card);
+  border-radius: 20px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1 / 1;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(74, 55, 40, 0.15);
+  transition: transform 0.1s ease;
+}
+.card svg { width: 100%; height: 100%; }
+.card:active { transform: scale(0.94); }
+
+.card.found {
+  box-shadow: 0 0 0 4px var(--ok) inset;
+  background: #F3FBE8;
+  opacity: 0.85;
+}
+
+.card.shake { animation: shake 0.35s ease; }
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  50% { transform: translateX(6px); }
+  75% { transform: translateX(-4px); }
+}
+
+/* Celebrate overlay */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 239, 213, 0.94);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  z-index: 10;
+  animation: pop 0.3s ease;
+}
+@keyframes pop {
+  from { transform: scale(0.85); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.celebrate-msg { font-size: 2.2rem; color: var(--accent-dark); text-align: center; }
+
+.confetti {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.confetti i {
+  position: absolute;
+  top: -20px;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  animation: fall linear forwards;
+}
+@keyframes fall {
+  to { transform: translateY(105vh) rotate(720deg); }
+}
+
+/* End screen */
+.stars {
+  display: flex;
+  gap: 10px;
+  font-size: 2.6rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.star { opacity: 0.22; filter: grayscale(1); }
+.star.filled { opacity: 1; filter: none; }
+.end-title { font-size: 2rem; color: var(--accent-dark); }

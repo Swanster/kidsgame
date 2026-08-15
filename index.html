@@ -1,0 +1,44 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Temukan Hewan 🐾</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <section id="menu" class="screen">
+    <h1 class="title">Temukan Hewan 🐾</h1>
+    <p class="subtitle">Ketuk semua hewan yang diminta!</p>
+    <button id="btn-start" class="btn-big">Main Yuk!</button>
+    <button id="btn-sound" class="btn-sound" aria-label="Suara">🔊</button>
+  </section>
+
+  <section id="round-screen" class="screen hidden">
+    <header class="target-panel">
+      <span id="target-svg" class="target-svg"></span>
+      <span id="target-name" class="target-name"></span>
+    </header>
+    <main id="grid" class="grid"></main>
+  </section>
+
+  <div id="celebrate" class="overlay hidden">
+    <div id="confetti" class="confetti"></div>
+    <p id="celebrate-msg" class="celebrate-msg">Yeay! 🎉</p>
+    <button id="btn-celebrate" class="btn-big">Lanjut!</button>
+  </div>
+
+  <section id="end-screen" class="screen hidden">
+    <h2 id="end-title" class="end-title">Selesai!</h2>
+    <div id="stars" class="stars"></div>
+    <button id="btn-again" class="btn-big">Main Lagi?</button>
+  </section>
+
+  <script src="animals.js"></script>
+  <script src="rounds.js"></script>
+  <script src="audio.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
