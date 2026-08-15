@@ -51,11 +51,12 @@ games-kay/
   - `list()`, `create(nama, avatarId)`, `activate(id)`, `active()`, `addScore(gameId, bintang)` (simpan hanya jika lebih baik dari yang tersimpan), `getScore(profilId, gameId)`.
 - Avatar: 6 ikon SVG dari `shared/avatars.js` (kucing, bebek, ikan, kelinci, mobil, bintang) — tanpa emoji.
 - Alur pertama kali: jika `list()` kosong → dashboard menampilkan layar "Buat Profil" (input nama + pilih avatar; urusan orang tua). Setelah ada profil: baris avatar besar di atas dashboard — sentuh avatar = ganti profil aktif.
+- Profil tambahan dibuat kapan saja lewat tombol "+" di baris avatar (layar yang sama; tombol "Kembali" membatalkan tanpa membuat profil).
 - Kartu game menampilkan bintang terbaik profil aktif: "⭐ 7/8".
 
 ## 5. Dashboard (UI)
 
-- **Layar profil**: baris avatar `≥96px`; tombol "Buat Profil" jika kosong.
+- **Layar profil**: baris avatar `≥96px`; tombol "Buat Profil" jika kosong; tombol "+" untuk profil tambahan bila sudah ada.
 - **Layar game**: grid kartu besar `≥96px` (ikon SVG game + nama + bintang terbaik); sentuh kartu → TTS membacakan nama game ("Temukan Hewan!") → navigasi masuk.
 - Konsisten dengan Temukan Hewan: `pointerdown` (sentuh + mouse), ikon SVG (tanpa ketergantungan emoji pada elemen fungsional), target sentuh ≥96px, TTS id-ID dengan fallback visual, efek Web Audio opsional (game tetap jalan tanpa suara).
 - Semua aset inline (tanpa request jaringan).
