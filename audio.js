@@ -29,7 +29,7 @@
   }
 
   function speak(text) {
-    if (muted || !root.speechSynthesis) return;
+    if (muted) return;
     try {
       var voice = pickIdVoice(root.speechSynthesis.getVoices());
       var u = new SpeechSynthesisUtterance(text);
