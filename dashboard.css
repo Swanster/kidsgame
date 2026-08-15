@@ -1,0 +1,54 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  background: #6EC6FF;
+  min-height: 100vh;
+  color: #263238;
+}
+.hidden { display: none !important; }
+.screen { max-width: 780px; margin: 0 auto; padding: 24px 16px 40px; }
+.title { font-size: 2rem; text-align: center; color: #FFF; text-shadow: 0 2px 4px rgba(0,0,0,.25); margin-bottom: 6px; }
+.subtitle { text-align: center; color: #E3F2FD; font-size: 1.1rem; margin-bottom: 20px; }
+.field-label { display: block; font-size: 1.1rem; color: #FFF; margin: 14px 0 6px; font-weight: 600; }
+#name-input {
+  width: 100%; font-size: 1.4rem; padding: 14px 16px; border-radius: 14px;
+  border: 3px solid #FFF; background: #FFF; color: #263238;
+}
+.avatar-pick, .avatar-row { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin: 12px 0; }
+.avatar-opt, .avatar-btn {
+  width: 96px; height: 96px; border-radius: 18px; border: 4px solid transparent;
+  background: #FFF; display: flex; flex-direction: column; align-items: center;
+  justify-content: center; gap: 2px; cursor: pointer; padding: 6px;
+}
+.avatar-opt svg, .avatar-btn svg { width: 52px; height: 52px; }
+.avatar-name { font-size: .95rem; font-weight: 600; color: #546E7A; }
+.avatar-opt.selected { border-color: #FFC107; background: #FFF8E1; transform: scale(1.05); }
+.avatar-btn.active { border-color: #FFC107; background: #FFF8E1; }
+.btn-big {
+  display: block; width: 100%; max-width: 420px; margin: 18px auto 0;
+  font-size: 1.5rem; font-weight: 700; padding: 18px 24px; min-height: 96px;
+  border: none; border-radius: 22px; background: #FF9F43; color: #FFF;
+  cursor: pointer; box-shadow: 0 4px 0 #E07B22;
+}
+.btn-big:active { transform: translateY(2px); box-shadow: 0 2px 0 #E07B22; }
+.setup-msg { text-align: center; color: #FFF; font-weight: 600; margin-top: 10px; min-height: 1.2em; }
+.game-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px; margin-top: 20px;
+}
+.game-card {
+  min-height: 140px; border-radius: 22px; border: none; background: #FFF;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 8px; padding: 16px; cursor: pointer; box-shadow: 0 4px 0 rgba(0,0,0,.15);
+}
+.game-card:active { transform: translateY(2px); }
+.game-icon svg { width: 64px; height: 64px; }
+.game-name { font-size: 1.15rem; font-weight: 700; color: #37474F; }
+.game-stars { font-size: .95rem; color: #F9A825; font-weight: 600; }
+.avatar-add { font-size: 2.2rem; color: #546E7A; background: rgba(255,255,255,.7); }
+.btn-link {
+  display: block; margin: 10px auto 0; background: none; border: none;
+  color: #E3F2FD; font-size: 1.05rem; text-decoration: underline;
+  cursor: pointer; padding: 12px 20px; min-height: 48px;
+  /* aksi orang tua — target sentuh anak tetap ≥96px */
+}

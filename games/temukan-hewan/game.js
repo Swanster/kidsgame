@@ -13,6 +13,7 @@
   var TOTAL_ROUNDS = 8;
 
   var els = {};
+  var returnTimer = null;
   var state = {
     screen: 'menu',      // 'menu' | 'round' | 'end'
     roundIndex: 0,
@@ -41,7 +42,7 @@
     els.endTitle = $('end-title');
 
     $('btn-start').addEventListener('pointerdown', startSession);
-    $('btn-again').addEventListener('pointerdown', startSession);
+    $('btn-again').addEventListener('pointerdown', backToDashboard);
     $('btn-celebrate').addEventListener('pointerdown', continueAfterCelebrate);
     $('btn-sound').addEventListener('pointerdown', toggleSound);
 
@@ -152,6 +153,11 @@
     }
   }
 
+  function backToDashboard() {
+    clearTimeout(returnTimer);
+    window.location.href = '../../index.html';
+  }
+
   function renderEnd() {
     var maxStars = 8;
     els.stars.innerHTML = '';
@@ -161,6 +167,8 @@
       s.innerHTML = STAR_SVG;
       els.stars.appendChild(s);
     }
+    if (root.Profiles) root.Profiles.addScore('temukan-hewan', state.stars);
+    returnTimer = setTimeout(backToDashboard, 6000);
     els.endTitle.textContent =
       state.stars === maxStars ? 'Sempurna! 🌟' :
       state.stars >= 5 ? 'Hebat sekali!' :
