@@ -18,6 +18,18 @@
     return bare[0] || null;
   }
 
+  function primeVoices() {
+    try {
+      var synth = root.speechSynthesis;
+      if (!synth) return;
+      synth.getVoices(); // memicu pemuatan daftar voice (async di Chrome/Android)
+      if (!synth.__ompPrimed) {
+        synth.__ompPrimed = true;
+        synth.addEventListener('voiceschanged', function () { synth.getVoices(); });
+      }
+    } catch (e) { /* silent */ }
+  }
+
   function unlock() {
     try {
       if (!ctx) {
@@ -26,17 +38,23 @@
       }
       if (ctx && ctx.state === 'suspended') ctx.resume();
     } catch (e) { /* silent */ }
+    primeVoices();
   }
 
   function speak(text) {
     if (muted) return;
     try {
-      var voice = pickIdVoice(root.speechSynthesis.getVoices());
+      var synth = root.speechSynthesis;
+      if (!synth) return;
+      var voices = synth.getVoices();
+      if (!voices.length) primeVoices();
       var u = new SpeechSynthesisUtterance(text);
       u.lang = 'id-ID';
+      var voice = pickIdVoice(voices);
       if (voice) u.voice = voice;
       u.rate = 0.9;
-      root.speechSynthesis.speak(u);
+      synth.cancel(); // buang antrian macet (bug antrian Chrome)
+      synth.speak(u);
     } catch (e) { /* silent */ }
   }
 
