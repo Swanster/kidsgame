@@ -16,7 +16,7 @@ Game memori klasik untuk anak 3–5 tahun: buka pasangan kartu kendaraan sampai 
 
 - **8 ronde**; tiap ronde = 1 papan yang harus dituntaskan. Papan selesai = **1 bintang** → `maxStars: 8`.
 - Progresi pasangan per ronde: **2, 3, 4, 4, 5, 5, 6, 6** → kartu: 4, 6, 8, 8, 10, 10, 12, 12.
-- Grid: ronde 1–2 2×2/2×3, ronde 3–4 2×4, ronde 5–6 2×5, ronde 7–8 3×4 (max 3 kolom, aman di tablet portrait).
+- Grid: ronde 1–2 2×2/2×3, ronde 3–4 2×4, ronde 5–6 2×5, ronde 7–8 3×4 (3 baris 4 kolom; aman di tablet portrait).
 - Posisi kartu diacak setiap ronde (`shuffle` — Fisher–Yates).
 
 ## 4. Mekanik Kartu
