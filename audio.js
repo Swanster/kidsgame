@@ -102,6 +102,7 @@
 
   return {
     pickIdVoice: pickIdVoice,
+    primeVoices: primeVoices,
     unlock: unlock,
     speak: speak,
     fx: fx,
