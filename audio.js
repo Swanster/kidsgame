@@ -30,15 +30,23 @@
     } catch (e) { /* silent */ }
   }
 
-  function unlock() {
+  function enable() {
     try {
       if (!ctx) {
         var AC = root.AudioContext || root.webkitAudioContext;
-        if (AC) ctx = new AC();
+        if (!AC) return Promise.reject(new Error('AudioContext tidak tersedia'));
+        ctx = new AC();
       }
-      if (ctx && ctx.state === 'suspended') ctx.resume();
-    } catch (e) { /* silent */ }
+      if (ctx.state === 'suspended') return ctx.resume();
+      return Promise.resolve();
+    } catch (e) {
+      return Promise.reject(e);
+    }
+  }
+
+  function unlock() {
     primeVoices();
+    return enable();
   }
 
   function speak(text) {
@@ -77,24 +85,24 @@
 
   function fx(kind) {
     if (muted) return;
-    if (!ctx) unlock();
-    if (!ctx) return;
-    switch (kind) {
-      case 'ding':
-        tone(880, 0.3, 'sine', 0.25);
-        break;
-      case 'wrong':
-        tone(220, 0.25, 'triangle', 0.15);
-        break;
-      case 'pop':
-        tone(300, 0.12, 'square', 0.08);
-        break;
-      case 'cheer':
-        tone(523, 0.18, 'sine', 0.2, 0);
-        tone(659, 0.18, 'sine', 0.2, 0.14);
-        tone(784, 0.3, 'sine', 0.22, 0.28);
-        break;
-    }
+    unlock().then(function () {
+      switch (kind) {
+        case 'ding':
+          tone(880, 0.3, 'sine', 0.25);
+          break;
+        case 'wrong':
+          tone(220, 0.25, 'triangle', 0.15);
+          break;
+        case 'pop':
+          tone(300, 0.12, 'square', 0.08);
+          break;
+        case 'cheer':
+          tone(523, 0.18, 'sine', 0.2, 0);
+          tone(659, 0.18, 'sine', 0.2, 0.14);
+          tone(784, 0.3, 'sine', 0.22, 0.28);
+          break;
+      }
+    }).catch(function () { /* silent */ });
   }
 
   function setMuted(m) { muted = !!m; }
@@ -107,6 +115,7 @@
     speak: speak,
     fx: fx,
     setMuted: setMuted,
-    isMuted: isMuted
+    isMuted: isMuted,
+    ctxState: function () { return ctx ? ctx.state : 'none'; }
   };
 });
