@@ -1,6 +1,6 @@
 const test = require('node:test');
 const assert = require('node:assert');
-const GameAudio = require('../audio.js');
+const GameAudio = require('../../../shared/audio.js');
 
 test('pickIdVoice prefers full id-ID voice', () => {
   const voices = [{ lang: 'en-US' }, { lang: 'id-ID' }, { lang: 'id' }];
