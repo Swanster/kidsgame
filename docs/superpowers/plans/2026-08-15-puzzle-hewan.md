@@ -301,12 +301,12 @@ Expected: FAIL — `Cannot find module '../puzzle.js'`
 - [ ] **Step 4: Jalankan tes → pastikan LULUS**
 
 Run: `node --test games/puzzle-hewan/tests/puzzle.test.js`
-Expected: PASS — 8 blok.
+Expected: PASS — 7 blok (brief memuat 7 blok test; angka "8 blok" di plan awal salah hitung).
 
 - [ ] **Step 5: Jalankan suite penuh dari root**
 
 Run: `node --test` (bare, dari root git)
-Expected: PASS semua — baseline 36 + 8 sorting + 8 puzzle = **52**. (Target spec: semua hijau; 52 ≥ 44 baseline.)
+Expected: PASS semua — baseline 44 + 7 puzzle = **51**. (Target spec: semua hijau; 51 ≥ 44 baseline.)
 
 - [ ] **Step 6: Commit**
 
@@ -838,7 +838,7 @@ body {
 - [ ] **Step 6: Jalankan suite penuh dari root**
 
 Run: `node --test` (bare)
-Expected: PASS semua — **52**; dashboard.test.js kini meng-iterasi **5 game** (path ada, script `../../shared/audio.js` + `../../shared/profile.js` dimuat — index.html di atas sudah sesuai).
+Expected: PASS semua — **51**; dashboard.test.js kini meng-iterasi **5 game** (path ada, script `../../shared/audio.js` + `../../shared/profile.js` dimuat — index.html di atas sudah sesuai).
 
 - [ ] **Step 7: Commit**
 
@@ -859,7 +859,7 @@ git commit -m "feat: add Puzzle Hewan game with stars and auto-return"
 
 - [ ] **Step 1: Suite penuh**
 
-Run: `node --test` dari root — wajib PASS (**52**). Konfirmasi `git status --short` hanya berisi file Task 1–2 (atau bersih setelah commit).
+Run: `node --test` dari root — wajib PASS (**51**). Konfirmasi `git status --short` hanya berisi file Task 1–2 (atau bersih setelah commit).
 
 - [ ] **Step 2: Smoke E2E CDP (controller) — file:// + http:// 768×1024**
 
@@ -871,18 +871,18 @@ Pola `/tmp/smoke-sortir.mjs` (Node ≥22 WebSocket + `google-chrome --headless=n
 
 - [ ] **Step 4: Review cabang penuh (agent reviewer)** — lensa: kepatuhan plan VERBATIM (Task 1–2), kontrak `Puzzle.*` dipakai persis di game.js (IMAGES/PIECES_PER_ROUND/layout/makeBoard/pieceSVG — no drift), registri entri ke-5 benar (posisi, icon, path), acceptance spec §9 (8 kriteria) satu-per-satu dengan nomor kriteria dari spec, amanat global (pointerdown, ≥96px, SVG bukan emoji, TTS id-ID, nol perubahan shared selain registri, UMD-lite tanpa `root.` di factory), UX (slot salah → shake + potongan tetap; slot benar → filled + progress; TTS "Pasangkan {hewan}!" saat ronde mulai; pujian TTS hemat) + bukti verifikasi smoke (dari ledger).
 
-- [ ] **Step 5: Merge** — `git checkout master && git merge <branch>` (FF); suite root 52 lulus di master; `git worktree remove .worktrees/puzzle-hewan` + prune; `git branch -d <branch>`; `git status` bersih.
+- [ ] **Step 5: Merge** — `git checkout master && git merge <branch>` (FF); suite root 51 lulus di master; `git worktree remove .worktrees/puzzle-hewan` + prune; `git branch -d <branch>`; `git status` bersih.
 
-- [ ] **Step 6: Ledger final + retain memory** — tulis hasil merge; simpan fakta durable (commit, 52/52, smoke pass).
+- [ ] **Step 6: Ledger final + retain memory** — tulis hasil merge; simpan fakta durable (commit, 51/51, smoke pass).
 
 ---
 
 ## Self-Review Catatan
 
-- **Spec §9 #1/#6/#8** → Task 1 (52/52: baseline 44 + 8 baru) + Task 2 (≥96px: `.slot` rasio persis potongan via inline style — 360vp: cell 100×100 (1/1) / 100×150 (2/3), 768vp: 138×138 / 138×207; sisi pendek selalu ≥96; `#piece-big` ≥96px & tray ≥120; `.btn-big`/`.btn-sound` 96; auto-return + clearTimeout) ✓
+- **Spec §9 #1/#6/#8** → Task 1 (51/51: baseline 44 + 7 baru) + Task 2 (≥96px: `.slot` rasio persis potongan via inline style — 360vp: cell 100×100 (1/1) / 100×150 (2/3), 768vp: 138×138 / 138×207; sisi pendek selalu ≥96; `#piece-big` ≥96px & tray ≥120; `.btn-big`/`.btn-sound` 96; auto-return + clearTimeout) ✓
 - **Tiling puzzle**: `.slot` `aspect-ratio` di-set inline = `cellW/cellH` (1/1 di ronde 2×2 & 3×3, 2/3 di 2×3) — tanpa ini, `preserveAspectRatio` default membuat gambar ronde 2×3 tidak menempel (kolom terpisah ~33%) ✓
-- **Spec §9 #2/#3/#4/#5/#7** → Task 2 + Task 3 (registri ke-5 auto-render; file://+http:// smoke; 8 ronde + potongan [4,4,6,6,9,9,9,9] + grid cols [2,2,2,2,3,3,3,3]; tap slot benar → ding + filled + progress; salah → wrong + shake + coba lagi + lock 320ms; skor via addScore guard; auto-return "Bintang 8/8") ✓
-- **Spec §8 kontrak** → Task 1 Interfaces + tes (8 blok murni bahwa `makeBoard`/`pieceSVG` memenuhi kontrak partisi): `pieceSVG` BUTUH `x,y` translate + angka `<text>` + aria-label "Potongan n"; `makeBoard` memberi piece `{n,col,row,x,y,w,h}` ✓
+- **Spec §9 #2/#3/#4/#5/#7** → Task 2 + Task 3 (registri ke-5 auto-render; file://+http:// smoke; 8 ronde + potongan [4,4,6,6,9,9,9,9] + grid cols [2,2,3,3,3,3,3,3]; tap slot benar → ding + filled + progress; salah → wrong + shake + coba lagi + lock 320ms; skor via addScore guard; auto-return "Bintang 8/8") ✓
+- **Spec §8 kontrak** → Task 1 Interfaces + tes (7 blok murni bahwa `makeBoard`/`pieceSVG` memenuhi kontrak partisi): `pieceSVG` BUTUH `x,y` translate + angka `<text>` + aria-label "Potongan n"; `makeBoard` memberi piece `{n,col,row,x,y,w,h}` ✓
 - Satu-satunya "acak" yang di-assert: `shuffle` panjang 20 (prob 1/20! ≈ 0); `makeBoard` di-test sebagai permutasi unik tanpa meng-assert urutan (menghindari flake) ✓
 - Konsistensi kontrak Task 1 ↔ Task 2: `piece-big` ar-label dari `pieceSVG` dipakai smoke; `data-slot` di slot; TTS ronde mulai = "Pasangkan {Nama}!" — nama dari `board.image.name` ✓
 - Registri: dashboard.test.js meng-iterasi GAMES → entri ke-5 otomatis dicakup ✓
