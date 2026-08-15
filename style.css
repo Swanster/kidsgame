@@ -58,15 +58,18 @@ body {
   position: fixed;
   top: 14px;
   right: 14px;
-  font-size: 1.6rem;
-  width: 56px;
-  height: 56px;
+  width: 96px;
+  height: 96px;
   border: none;
   border-radius: 50%;
   background: #fff;
   box-shadow: 0 4px 10px rgba(74, 55, 40, 0.2);
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+.btn-sound svg { width: 52px; height: 52px; }
 
 /* Round screen */
 .target-panel {

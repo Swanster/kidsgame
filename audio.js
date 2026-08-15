@@ -40,19 +40,20 @@
     } catch (e) { /* silent */ }
   }
 
-  function tone(freq, dur, type, vol) {
+  function tone(freq, dur, type, vol, when) {
     if (muted || !ctx) return;
     try {
+      var t0 = ctx.currentTime + (when || 0);
       var o = ctx.createOscillator();
       var g = ctx.createGain();
       o.type = type;
       o.frequency.value = freq;
-      g.gain.setValueAtTime(vol, ctx.currentTime);
-      g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + dur);
+      g.gain.setValueAtTime(vol, t0);
+      g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
       o.connect(g);
       g.connect(ctx.destination);
-      o.start();
-      o.stop(ctx.currentTime + dur);
+      o.start(t0);
+      o.stop(t0 + dur);
     } catch (e) { /* silent */ }
   }
 
@@ -71,9 +72,9 @@
         tone(300, 0.12, 'square', 0.08);
         break;
       case 'cheer':
-        tone(523, 0.18, 'sine', 0.2);
-        setTimeout(function () { tone(659, 0.18, 'sine', 0.2); }, 140);
-        setTimeout(function () { tone(784, 0.3, 'sine', 0.22); }, 280);
+        tone(523, 0.18, 'sine', 0.2, 0);
+        tone(659, 0.18, 'sine', 0.2, 0.14);
+        tone(784, 0.3, 'sine', 0.22, 0.28);
         break;
     }
   }

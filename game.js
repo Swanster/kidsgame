@@ -7,6 +7,9 @@
   var GameAudio = root.GameAudio;
 
   var PRIDE = ['Hebat!', 'Keren!', 'Luar biasa!', 'Pintar!'];
+  var ICON_SOUND = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16 8a5 5 0 0 1 0 8" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M18.5 5.5a9 9 0 0 1 0 13" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>';
+  var ICON_MUTED = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16 9l5 6M21 9l-5 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>';
+  var STAR_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true" width="40" height="40"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z" fill="currentColor"/></svg>';
   var TOTAL_ROUNDS = 8;
 
   var els = {};
@@ -47,7 +50,7 @@
 
   function toggleSound() {
     GameAudio.setMuted(!GameAudio.isMuted());
-    $('btn-sound').textContent = GameAudio.isMuted() ? '🔇' : '🔊';
+    $('btn-sound').innerHTML = GameAudio.isMuted() ? ICON_MUTED : ICON_SOUND;
     if (!GameAudio.isMuted()) GameAudio.unlock();
   }
 
@@ -155,7 +158,7 @@
     for (var i = 0; i < maxStars; i++) {
       var s = document.createElement('span');
       s.className = 'star' + (i < state.stars ? ' filled' : '');
-      s.textContent = '⭐';
+      s.innerHTML = STAR_SVG;
       els.stars.appendChild(s);
     }
     els.endTitle.textContent =
