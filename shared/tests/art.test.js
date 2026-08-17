@@ -51,6 +51,24 @@ test('lookup hewan/kendaraan: dikenal -> string, tak dikenal -> FALLBACK + conso
   }
 });
 
+test('ANIMALS: 12 hewan union, id unik cocok pola, nama non-kosong, gaya A-2', () => {
+  assert.ok(Array.isArray(Art.ANIMALS) && Art.ANIMALS.length === 12);
+  const ids = Art.ANIMALS.map(a => a.id);
+  assert.strictEqual(new Set(ids).size, 12);
+  for (const id of ids) assert.ok(/^[a-z]+(?:-[a-z]+)*$/.test(id), 'id aneh: ' + id);
+  for (const a of Art.ANIMALS) {
+    assert.ok(a.name && a.name.trim().length > 0, 'nama kosong');
+    assert.ok(a.group && a.group.trim().length > 0, 'group kosong: ' + a.id);
+    assert.strictEqual(styleOk(a.svg), null, a.id + ': ' + styleOk(a.svg));
+  }
+  const shared = ['kucing', 'anjing', 'kelinci', 'bebek', 'burung', 'gajah'];
+  const temukanOnly = ['singa', 'babi', 'sapi', 'katak'];
+  const puzzleOnly = ['ikan', 'kura-kura'];
+  for (const id of shared.concat(temukanOnly, puzzleOnly)) {
+    assert.ok(ids.includes(id), 'union harus memuat ' + id);
+  }
+});
+
 test('VEHICLES: 8 kendaraan standar, id unik, nama non-kosong, gaya A-2', () => {
   assert.ok(Array.isArray(Art.VEHICLES) && Art.VEHICLES.length === 8);
   const ids = Art.VEHICLES.map(v => v.id);

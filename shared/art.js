@@ -85,24 +85,6 @@
     '<circle cx="44" cy="72" r="2.5" fill="#FFFFFF"/>' +
     '<ellipse cx="60" cy="100" rx="20" ry="4" fill="rgba(0,0,0,0.12)"/>';
 
-  // KUCING (seed Task 1; lengkap di Task 3)
-  var kucing =
-    groundShadow(60, 112, 36) +
-    '<path d="M32 44 L44 12 L58 36 Z" fill="#B97A45"' + O() + ' stroke-linejoin="round"/>' +
-    '<path d="M88 44 L76 12 L62 36 Z" fill="#B97A45"' + O() + ' stroke-linejoin="round"/>' +
-    '<path d="M42 42 L46 22 L54 36 Z" fill="#F9C6D2"' + O(2) + ' stroke-linejoin="round"/>' +
-    '<path d="M78 42 L74 22 L66 36 Z" fill="#F9C6D2"' + O(2) + ' stroke-linejoin="round"/>' +
-    '<circle cx="60" cy="60" r="34" fill="#E0A86E"' + O(5) + '/>' +
-    '<path d="M45 34 l4 -9 M55 32 l3 -8 M65 32 l3 -8 M75 34 l4 -9" stroke="#B97A45" stroke-width="4" stroke-linecap="round"/>' +
-    eyesE(60, 54) +
-    brows(60, 52) +
-    blush(60, 66) +
-    muzzle(60, 70) +
-    '<path d="M26 62 L12 58 M26 68 L12 68 M26 74 L12 78 M94 62 L108 58 M94 68 L108 68 M94 74 L108 78" stroke="#5A4630" stroke-width="2" stroke-linecap="round"/>' +
-    body(60, 100) +
-    collarTag(60, 100) +
-    pawsY(60, 113);
-
   // wheel helper — dipakai VEHICLES
   function wheel(cx, cy, r) {
     return '<circle cx="' + cx + '" cy="' + cy + '" r="' + r + '" fill="#4A3728"' + O(3) + '/>' +
@@ -110,7 +92,164 @@
       '<circle cx="' + (cx - r * 0.15) + '" cy="' + (cy - r * 0.15) + '" r="' + (r * 0.15) + '" fill="#FFFFFF"/>';
   }
 
-  var ANIMALS = [{ id: 'kucing', name: 'Kucing', group: 'feline', svg: kucing }];  // diperluas di Task 3
+  var ANIMALS = [
+    { id: 'kucing', name: 'Kucing', group: 'feline', svg:
+      groundShadow(60, 112, 36) +
+      '<path d="M32 44 L44 12 L58 36 Z" fill="#B97A45"' + O() + ' stroke-linejoin="round"/>' +
+      '<path d="M88 44 L76 12 L62 36 Z" fill="#B97A45"' + O() + ' stroke-linejoin="round"/>' +
+      '<path d="M42 42 L46 22 L54 36 Z" fill="#F9C6D2"' + O(2) + ' stroke-linejoin="round"/>' +
+      '<path d="M78 42 L74 22 L66 36 Z" fill="#F9C6D2"' + O(2) + ' stroke-linejoin="round"/>' +
+      '<circle cx="60" cy="60" r="34" fill="#E0A86E"' + O(5) + '/>' +
+      '<path d="M45 34 l4 -9 M55 32 l3 -8 M65 32 l3 -8 M75 34 l4 -9" stroke="#B97A45" stroke-width="4" stroke-linecap="round"/>' +
+      eyesE(60, 54) + brows(60, 52) + blush(60, 66) + muzzle(60, 70) +
+      '<path d="M26 62 L12 58 M26 68 L12 68 M26 74 L12 78 M94 62 L108 58 M94 68 L108 68 M94 74 L108 78" stroke="#5A4630" stroke-width="2" stroke-linecap="round"/>' +
+      body(60, 100) + collarTag(60, 100) + pawsY(60, 113) },
+
+    { id: 'singa', name: 'Singa', group: 'feline', svg:
+      groundShadow(60, 112, 40) +
+      '<circle cx="60" cy="62" r="40" fill="#E08A2E"' + O(5) + '/>' +
+      '<path d="M34 30 l-8 -12 M52 24 l-3 -14 M66 24 l-3 14 M84 30 l8 -12" stroke="#E08A2E" stroke-width="5" stroke-linecap="round"/>' +
+      '<circle cx="60" cy="62" r="30" fill="#F0C060"' + O(5) + '/>' +
+      '<ellipse cx="34" cy="34" rx="5" ry="8" fill="#E08A2E"' + O(2.5) + ' transform="rotate(-15 34 34)"/>' +
+      '<ellipse cx="86" cy="34" rx="5" ry="8" fill="#E08A2E"' + O(2.5) + ' transform="rotate(15 86 34)"/>' +
+      eyesE(60, 56) + brows(60, 54) + blush(60, 68) +
+      '<ellipse cx="60" cy="72" rx="17" ry="12" fill="#FBE8C8"/>' +
+      '<ellipse cx="60" cy="66" rx="7" ry="5" fill="#3A2A1E"/>' +
+      '<ellipse cx="58" cy="64.5" rx="2.5" ry="1.8" fill="#FFFFFF"/>' +
+      '<path d="M54 76 q6 4 12 0" stroke="#5A4630" stroke-width="2.5" fill="none" stroke-linecap="round"/>' +
+      body(60, 100, 1, '#E08A2E') + collarTag(60, 100) + pawsY(60, 113) },
+
+    { id: 'anjing', name: 'Anjing', group: 'canine', svg:
+      groundShadow(60, 112, 36) +
+      '<ellipse cx="32" cy="38" rx="12" ry="22" fill="#B97A45"' + O(5) + ' transform="rotate(-18 32 38)"/>' +
+      '<ellipse cx="33" cy="41" rx="5.5" ry="13" fill="#F9C6D2" transform="rotate(-18 33 41)"/>' +
+      '<ellipse cx="88" cy="38" rx="12" ry="22" fill="#B97A45"' + O(5) + ' transform="rotate(18 88 38)"/>' +
+      '<ellipse cx="87" cy="41" rx="5.5" ry="13" fill="#F9C6D2" transform="rotate(18 87 41)"/>' +
+      '<circle cx="60" cy="58" r="34" fill="#E0A86E"' + O(5) + '/>' +
+      '<circle cx="40" cy="42" r="6" fill="#C98E5A"/>' +
+      '<circle cx="84" cy="66" r="5" fill="#C98E5A"/>' +
+      eyesE(60, 54) + brows(60, 52) + blush(60, 66) + muzzle(60, 68) +
+      body(60, 100) + collarTag(60, 100) + pawsY(60, 113) },
+
+    { id: 'kelinci', name: 'Kelinci', group: 'lagomorph', svg:
+      groundShadow(60, 112, 36) +
+      '<ellipse cx="45" cy="22" rx="9" ry="27" fill="#E4E8EC"' + O(4) + '/>' +
+      '<ellipse cx="75" cy="22" rx="9" ry="27" fill="#E4E8EC"' + O(4) + '/>' +
+      '<ellipse cx="46" cy="24" rx="4" ry="17" fill="#F9C6D2"/>' +
+      '<ellipse cx="74" cy="24" rx="4" ry="17" fill="#F9C6D2"/>' +
+      '<circle cx="60" cy="60" r="34" fill="#FFFFFF"' + O(5) + '/>' +
+      eyesE(60, 54) + brows(60, 54) + blush(60, 68) +
+      '<ellipse cx="60" cy="70" rx="14" ry="11" fill="#F0E6D2"/>' +
+      '<ellipse cx="60" cy="65" rx="5.5" ry="4" fill="#3A2A1E"/>' +
+      '<rect x="56" y="73" width="3.5" height="5" rx="1" fill="#FFFFFF" stroke="#5A4630" stroke-width="1.5"/>' +
+      '<rect x="60.5" y="73" width="3.5" height="5" rx="1" fill="#FFFFFF" stroke="#5A4630" stroke-width="1.5"/>' +
+      '<path d="M54 79 q6 3 12 0" stroke="#5A4630" stroke-width="2" fill="none" stroke-linecap="round"/>' +
+      body(60, 100, 1, '#FFFFFF') + collarTag(60, 100) + pawsY(60, 113) },
+
+    { id: 'gajah', name: 'Gajah', group: 'proboscidean', svg:
+      groundShadow(60, 112, 40) +
+      '<ellipse cx="28" cy="52" rx="14" ry="22" fill="#A3B8C4"' + O(4) + ' transform="rotate(-15 28 52)"/>' +
+      '<ellipse cx="92" cy="52" rx="14" ry="22" fill="#A3B8C4"' + O(4) + ' transform="rotate(15 92 52)"/>' +
+      '<circle cx="60" cy="58" r="32" fill="#9DA9B5"' + O(5) + '/>' +
+      eyesE(60, 54) + brows(60, 54) + blush(60, 66) +
+      '<path d="M54 68 q-6 20 4 32 q2 3 6 3 q4 0 6 -3 q10 -12 4 -32 q-5 6 -10 0 Z" fill="#9DA9B5"' + O(4) + ' stroke-linejoin="round"/>' +
+      '<ellipse cx="60" cy="100" rx="5" ry="3" fill="#FFFFFF"' + O(2.5) + '/>' +
+      '<path d="M50 66 a5 4 0 0 0 0 7 M70 66 a5 4 0 0 1 0 7" stroke="#FFFFFF" stroke-width="3" fill="none" stroke-linecap="round"/>' +
+      body(60, 100, 1, '#9DA9B5') + pawsY(60, 113) },
+
+    { id: 'bebek', name: 'Bebek', group: 'bird', svg:
+      '<ellipse cx="60" cy="96" rx="26" ry="10" fill="#F0E6D2"' + O(4) + '/>' +
+      '<circle cx="60" cy="62" r="33" fill="#FFCA28"' + O(5) + '/>' +
+      eyesE(60, 54) + blush(60, 66) +
+      '<path d="M60 66 q26 -4 24 14 q-2 14 -12 10 l-10 -8 Z" fill="#FB8C00"' + O(4) + ' stroke-linejoin="round"/>' +
+      '<path d="M70 70 l4 5 M74 74 l6 2" stroke="#FBE8C8" stroke-width="3" stroke-linecap="round"/>' +
+      '<path d="M42 74 q-8 10 -4 18" stroke="#FB8C00" stroke-width="5" fill="none" stroke-linecap="round"/>' +
+      '<path d="M30 96 q14 -8 28 0 q14 8 30 0" stroke="#26C6DA" stroke-width="4" fill="none" stroke-linecap="round"/>' },
+
+    { id: 'burung', name: 'Burung', group: 'bird', svg:
+      groundShadow(60, 106, 30) +
+      '<circle cx="60" cy="56" r="32" fill="#1E88E5"' + O(5) + '/>' +
+      '<path d="M44 62 a26 16 0 0 0 14 2 l-2 16 a16 12 0 0 1 -16 -6 Z" fill="#7E57C2"' + O(4) + ' stroke-linejoin="round"/>' +
+      '<ellipse cx="60" cy="48" rx="12" ry="9" fill="#FFFFFF"' + O(4) + '/>' +
+      '<ellipse cx="60" cy="46" rx="6" ry="4.5" fill="#3A2A1E"/>' +
+      '<path d="M66 52 l14 2 l-14 2 Z" fill="#FFCA28"' + O(3) + ' stroke-linejoin="round"/>' +
+      '<path d="M46 44 l4 4 M44 40 l5 3" stroke="#FBE8C8" stroke-width="3" stroke-linecap="round"/>' +
+      blush(60, 66) +
+      '<path d="M64 78 a4 4 0 0 0 10 0 M46 76 a4 4 0 0 0 10 0" stroke="#5A4630" stroke-width="2.5" fill="none" stroke-linecap="round"/>' +
+      '<path d="M38 96 h10 M72 96 h10 M50 102 h6 M64 102 h6" stroke="#E08A2E" stroke-width="3.5" stroke-linecap="round"/>' },
+
+    { id: 'ikan', name: 'Ikan', group: 'fish', svg:
+      '<ellipse cx="60" cy="60" rx="34" ry="22" fill="#FF7043"' + O(5) + '/>' +
+      '<path d="M92 60 l16 -10 v20 Z" fill="#E53935"' + O(4) + ' stroke-linejoin="round"/>' +
+      '<path d="M60 38 l-4 -12 M48 42 l-8 -10 M72 42 l8 -10" stroke="#E53935" stroke-width="4" stroke-linecap="round"/>' +
+      '<circle cx="46" cy="54" r="8" fill="#FFFFFF" stroke="#5A4630" stroke-width="3"/>' +
+      '<circle cx="44" cy="56" r="3.8" fill="#3A2A1E"/>' +
+      '<circle cx="42.5" cy="54.5" r="1.5" fill="#FFFFFF"/>' +
+      '<path d="M64 68 q8 6 16 0" stroke="#B39DDB" stroke-width="3" fill="none" stroke-linecap="round"/>' +
+      '<circle cx="78" cy="38" r="2" fill="#FFFFFF" opacity="0.9"/>' +
+      '<circle cx="86" cy="72" r="1.5" fill="#FFFFFF" opacity="0.9"/>' +
+      '<path d="M24 78 q12 -8 24 0 M48 80 q14 -8 28 0" stroke="#26C6DA" stroke-width="3.5" fill="none" stroke-linecap="round"/>' },
+
+    { id: 'kura-kura', name: 'Kura-kura', group: 'reptile', svg:
+      groundShadow(60, 110, 42) +
+      '<path d="M30 56 a30 30 0 0 1 60 0 v14 a30 30 0 0 1 -60 0 Z" fill="#43A047"' + O(5) + ' stroke-linejoin="round"/>' +
+      '<path d="M41 62 a19 19 0 0 1 38 0" stroke="#7CB342" stroke-width="4" fill="none" stroke-linecap="round"/>' +
+      '<path d="M60 49 v26 M48 53 v22 M72 53 v22" stroke="#7CB342" stroke-width="3.5" stroke-linecap="round"/>' +
+      '<ellipse cx="60" cy="40" rx="13" ry="11" fill="#7CB342"' + O(4) + '/>' +
+      '<circle cx="54" cy="38" r="3.2" fill="#3A2A1E"/>' +
+      '<circle cx="66" cy="38" r="3.2" fill="#3A2A1E"/>' +
+      '<circle cx="53" cy="36.5" r="1.2" fill="#FFFFFF"/>' +
+      '<circle cx="65" cy="36.5" r="1.2" fill="#FFFFFF"/>' +
+      '<path d="M57 43 q3 2 6 0" stroke="#5A4630" stroke-width="2" fill="none" stroke-linecap="round"/>' +
+      '<path d="M26 58 q-8 6 0 12 M94 58 q8 6 0 12" stroke="#43A047" stroke-width="6" fill="none" stroke-linecap="round"/>' +
+      '<path d="M46 95 h4 M60 97 h4 M74 95 h4" stroke="#7CB342" stroke-width="3.5" stroke-linecap="round"/>' },
+
+    { id: 'babi', name: 'Babi', group: 'suid', svg:
+      groundShadow(60, 112, 36) +
+      '<ellipse cx="33" cy="44" rx="11" ry="19" fill="#F9C6D2"' + O(4) + ' transform="rotate(-20 33 44)"/>' +
+      '<ellipse cx="87" cy="44" rx="11" ry="19" fill="#F9C6D2"' + O(4) + ' transform="rotate(20 87 44)"/>' +
+      '<circle cx="60" cy="62" r="34" fill="#FFB3B3"' + O(5) + '/>' +
+      eyesE(60, 54) + brows(60, 54) + blush(60, 66) +
+      '<ellipse cx="60" cy="72" rx="17" ry="12" fill="#F6D9B8"' + O(4) + '/>' +
+      '<ellipse cx="55" cy="71" rx="2.8" ry="3.6" fill="#3A2A1E"/>' +
+      '<ellipse cx="65" cy="71" rx="2.8" ry="3.6" fill="#3A2A1E"/>' +
+      '<path d="M56 80 q4 3 8 0" stroke="#5A4630" stroke-width="2.5" fill="none" stroke-linecap="round"/>' +
+      body(60, 100, 1, '#FFB3B3') + collarTag(60, 100) + pawsY(60, 113) +
+      '<path d="M78 56 q14 8 8 22" stroke="#FFB3B3" stroke-width="6" fill="none" stroke-linecap="round"/>' },
+
+    { id: 'sapi', name: 'Sapi', group: 'bovine', svg:
+      groundShadow(60, 112, 38) +
+      '<path d="M44 26 L38 8 L56 22 Z" fill="#F0E6D2"' + O(4) + ' stroke-linejoin="round"/>' +
+      '<path d="M76 26 L82 8 L64 22 Z" fill="#F0E6D2"' + O(4) + ' stroke-linejoin="round"/>' +
+      '<ellipse cx="34" cy="42" rx="9" ry="16" fill="#E4E8EC"' + O(4) + ' transform="rotate(-15 34 42)"/>' +
+      '<ellipse cx="86" cy="42" rx="9" ry="16" fill="#E4E8EC"' + O(4) + ' transform="rotate(15 86 42)"/>' +
+      '<circle cx="60" cy="60" r="34" fill="#FFFFFF"' + O(5) + '/>' +
+      '<path d="M40 40 a12 10 0 0 1 8 -8 l2 16 a11 9 0 0 1 -14 -2 Z" fill="#4A3728"/>' +
+      '<path d="M76 66 a10 8 0 0 1 -6 -9 l14 -2 a10 8 0 0 1 -4 11 Z" fill="#4A3728"/>' +
+      eyesE(60, 54) + brows(60, 54) + blush(60, 66) +
+      '<ellipse cx="60" cy="70" rx="18" ry="12" fill="#F0E6D2" stroke="#5A4630" stroke-width="3"/>' +
+      '<ellipse cx="60" cy="66" rx="7" ry="5" fill="#3A2A1E"/>' +
+      '<ellipse cx="58" cy="64.5" rx="2.5" ry="1.8" fill="#FFFFFF"/>' +
+      '<path d="M54 76 q6 4 12 0" stroke="#5A4630" stroke-width="2.5" fill="none" stroke-linecap="round"/>' +
+      body(60, 100, 1, '#FFFFFF') + collarTag(60, 100) + pawsY(60, 113) },
+
+    { id: 'katak', name: 'Katak', group: 'anuran', svg:
+      groundShadow(60, 110, 40) +
+      '<circle cx="44" cy="36" r="15" fill="#43A047"' + O(4) + '/>' +
+      '<circle cx="76" cy="36" r="15" fill="#43A047"' + O(4) + '/>' +
+      '<circle cx="42" cy="34" r="6" fill="#FFFFFF" stroke="#3A2A1E" stroke-width="2.5"/>' +
+      '<circle cx="74" cy="34" r="6" fill="#FFFFFF" stroke="#3A2A1E" stroke-width="2.5"/>' +
+      '<circle cx="41" cy="35" r="3" fill="#3A2A1E"/>' +
+      '<circle cx="73" cy="35" r="3" fill="#3A2A1E"/>' +
+      '<circle cx="40" cy="33.5" r="1.2" fill="#FFFFFF"/>' +
+      '<circle cx="72" cy="33.5" r="1.2" fill="#FFFFFF"/>' +
+      '<ellipse cx="60" cy="66" rx="38" ry="30" fill="#7CB342"' + O(5) + '/>' +
+      '<ellipse cx="60" cy="74" rx="14" ry="10" fill="#FBE8C8"/>' +
+      '<path d="M52 78 q8 8 16 0" stroke="#5A4630" stroke-width="3" fill="none" stroke-linecap="round"/>' +
+      '<circle cx="44" cy="80" r="4.5" fill="#FFB3B3"/>' +
+      '<circle cx="76" cy="80" r="4.5" fill="#FFB3B3"/>' +
+      '<path d="M24 82 q-8 10 -2 16 M96 82 q8 10 2 16" stroke="#7CB342" stroke-width="6" fill="none" stroke-linecap="round"/>' }
+  ];
 
   var VEHICLES = [
     { id: 'car', name: 'Mobil', svg:
