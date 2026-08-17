@@ -50,3 +50,18 @@ test('lookup hewan/kendaraan: dikenal -> string, tak dikenal -> FALLBACK + conso
     console.error = orig;
   }
 });
+
+test('VEHICLES: 8 kendaraan standar, id unik, nama non-kosong, gaya A-2', () => {
+  assert.ok(Array.isArray(Art.VEHICLES) && Art.VEHICLES.length === 8);
+  const ids = Art.VEHICLES.map(v => v.id);
+  const names = Art.VEHICLES.map(v => v.name);
+  assert.strictEqual(new Set(ids).size, 8);
+  assert.ok(names.every(n => n && n.trim().length > 0));
+  for (const id of ['car', 'train', 'plane', 'ship', 'bike', 'tractor', 'bus', 'helicopter']) {
+    assert.ok(ids.includes(id), 'harus ada ' + id);
+  }
+  for (const v of Art.VEHICLES) {
+    assert.strictEqual(styleOk(v.svg), null, v.id + ': ' + styleOk(v.svg));
+    assert.ok(!v.svg.includes('<svg'), v.id + ' tanpa <svg>');
+  }
+});

@@ -103,22 +103,84 @@
     collarTag(60, 100) +
     pawsY(60, 113);
 
-  // CAR (seed Task 1; lengkap di Task 2)
+  // wheel helper — dipakai VEHICLES
   function wheel(cx, cy, r) {
     return '<circle cx="' + cx + '" cy="' + cy + '" r="' + r + '" fill="#4A3728"' + O(3) + '/>' +
       '<circle cx="' + cx + '" cy="' + cy + '" r="' + (r * 0.45) + '" fill="#9E9E9E"/>' +
       '<circle cx="' + (cx - r * 0.15) + '" cy="' + (cy - r * 0.15) + '" r="' + (r * 0.15) + '" fill="#FFFFFF"/>';
   }
-  var car =
-    groundShadow(60, 108, 44) +
-    '<path d="M22 70 L30 46 a6 6 0 0 1 6 -5 h32 a6 6 0 0 1 6 5 l8 24 h-52 Z" fill="#E53935"' + O(5) + ' stroke-linejoin="round"/>' +
-    '<rect x="36" y="42" width="26" height="19" rx="5" fill="#F0C9A0"' + O(3) + '/>' +
-    '<path d="M42 46 l4 4 M56 46 l4 4" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>' +
-    '<circle cx="34" cy="64" r="4" fill="#FFE082"' + O(2.5) + '/>' +
-    wheel(34, 84, 13) + wheel(78, 84, 13);
 
   var ANIMALS = [{ id: 'kucing', name: 'Kucing', group: 'feline', svg: kucing }];  // diperluas di Task 3
-  var VEHICLES = [{ id: 'car', name: 'Mobil', svg: car }]; // diperluas di Task 2
+
+  var VEHICLES = [
+    { id: 'car', name: 'Mobil', svg:
+      groundShadow(60, 108, 44) +
+      '<path d="M22 70 L30 46 a6 6 0 0 1 6 -5 h32 a6 6 0 0 1 6 5 l8 24 h-52 Z" fill="#E53935"' + O(5) + ' stroke-linejoin="round"/>' +
+      '<rect x="36" y="42" width="26" height="19" rx="5" fill="#F0C9A0"' + O(3) + '/>' +
+      '<path d="M42 46 l4 4 M56 46 l4 4" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>' +
+      '<circle cx="34" cy="64" r="4" fill="#FFE082"' + O(2.5) + '/>' +
+      wheel(34, 84, 13) + wheel(78, 84, 13) },
+    { id: 'train', name: 'Kereta', svg:
+      groundShadow(60, 108, 46) +
+      '<path d="M18 66 L26 42 h52 l6 13 a4 4 0 0 1 1 4 v7 h-65 Z" fill="#1E88E5"' + O(5) + ' stroke-linejoin="round"/>' +
+      '<rect x="34" y="44" width="24" height="16" rx="4" fill="#F0C9A0"' + O(3) + '/>' +
+      '<path d="M16 62 l6 -12 h8 v12 Z" fill="#7E57C2"' + O(3) + ' stroke-linejoin="round"/>' +
+      '<rect x="26" y="54" width="6" height="7" rx="2" fill="#FFFFFF" opacity="0.85"/>' +
+      '<circle cx="28" cy="36" r="6" fill="#FF7043"' + O(3) + '/>' +
+      wheel(24, 84, 12) + wheel(52, 84, 12) + wheel(78, 84, 12) },
+    { id: 'plane', name: 'Pesawat', svg:
+      groundShadow(60, 108, 44) +
+      '<path d="M20 74 a26 14 0 0 1 52 -6 l36 4 -8 10 -38 -2 a30 12 0 0 0 -18 4 l-16 -4 a8 8 0 0 1 -8 -6 Z" fill="#FB8C00"' + O(4) + ' stroke-linejoin="round"/>' +
+      '<path d="M40 46 l-14 -18 M46 52 l8 -24 M34 74 l-16 -6" stroke="#FBE8C8" stroke-width="4" stroke-linecap="round"/>' +
+      '<path d="M90 70 l10 -16 8 16 Z" fill="#E08A2E"' + O(3) + ' stroke-linejoin="round"/>' +
+      '<path d="M30 82 h42" stroke="#FBE8C8" stroke-width="3" stroke-linecap="round"/>' +
+      '<circle cx="44" cy="62" r="7" fill="#F0C9A0"' + O(3) + '/>' +
+      '<circle cx="42" cy="60" r="2" fill="#FFFFFF"/>' +
+      '<circle cx="14" cy="74" r="4" fill="#4A3728"' + O(2.5) + '/>' +
+      '<path d="M14 62 v24 M4 74 h20" stroke="#4A3728" stroke-width="4" stroke-linecap="round"/>' },
+    { id: 'ship', name: 'Kapal', svg:
+      '<path d="M18 72 a38 14 0 0 0 30 12 a14 14 0 0 0 10 -3 a38 12 0 0 0 26 -8 l-8 26 h-50 Z" fill="#26C6DA"' + O(5) + ' stroke-linejoin="round"/>' +
+      '<rect x="34" y="42" width="24" height="24" rx="5" fill="#FBE8C8"' + O(4) + '/>' +
+      '<path d="M38 46 h16 M38 52 h16 M38 58 h10" stroke="#E53935" stroke-width="3" stroke-linecap="round"/>' +
+      '<path d="M38 34 v8" stroke="#5A4630" stroke-width="3" stroke-linecap="round"/>' +
+      '<path d="M38 34 l14 -3 v6 Z" fill="#E53935"' + O(2.5) + ' stroke-linejoin="round"/>' +
+      '<circle cx="40" cy="74" r="3.5" fill="#FFFFFF"' + O(2) + '/>' +
+      '<circle cx="52" cy="76" r="3.5" fill="#FFFFFF"' + O(2) + '/>' +
+      '<ellipse cx="60" cy="78" rx="16" ry="4" fill="rgba(0,0,0,0.12)"/>' +
+      '<path d="M22 78 q16 -8 32 0 M58 76 q14 -6 28 0" stroke="#1E88E5" stroke-width="4" fill="none" stroke-linecap="round"/>' },
+    { id: 'bike', name: 'Sepeda', svg:
+      groundShadow(60, 106, 46) +
+      wheel(28, 74, 17) + wheel(82, 74, 17) +
+      '<path d="M28 74 L48 46 L76 74 M48 46 L62 74 M60 55 L48 46 M36 70 L56 66" stroke="#E53935" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '<rect x="46" y="34" width="7" height="18" rx="3.5" fill="#4A3728" transform="rotate(18 49 43)"/>' +
+      '<path d="M72 40 a6 6 0 1 0 0.1 0" stroke="#4A3728" stroke-width="4" fill="none"/>' },
+    { id: 'tractor', name: 'Traktor', svg:
+      groundShadow(60, 110, 46) +
+      '<path d="M20 62 L28 42 h34 a4 4 0 0 1 4 4 v16 h-46 Z" fill="#43A047"' + O(5) + ' stroke-linejoin="round"/>' +
+      '<rect x="44" y="34" width="18" height="16" rx="4" fill="#FFE082"' + O(3) + '/>' +
+      '<rect x="22" y="58" width="40" height="7" rx="3.5" fill="#8A5A33"' + O(3) + '/>' +
+      wheel(28, 78, 14) + wheel(82, 84, 19) +
+      '<rect x="16" y="66" width="23" height="5" rx="2.5" fill="#B39DDB"' + O(2.5) + '/>' },
+    { id: 'bus', name: 'Bus', svg:
+      groundShadow(60, 108, 46) +
+      '<rect x="14" y="38" width="70" height="42" rx="10" fill="#FFCA28"' + O(5) + '/>' +
+      '<rect x="20" y="46" width="16" height="14" rx="3" fill="#F0C9A0"' + O(2.5) + '/>' +
+      '<rect x="40" y="46" width="16" height="14" rx="3" fill="#F0C9A0"' + O(2.5) + '/>' +
+      '<rect x="60" y="46" width="16" height="14" rx="3" fill="#F0C9A0"' + O(2.5) + '/>' +
+      '<path d="M56 70 l-3 -4 M56 70 l3 -4" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>' +
+      wheel(30, 84, 12) + wheel(78, 84, 12) },
+    { id: 'helicopter', name: 'Helikopter', svg:
+      groundShadow(60, 106, 44) +
+      '<ellipse cx="60" cy="62" rx="34" ry="20" fill="#7E57C2"' + O(5) + '/>' +
+      '<path d="M34 58 a16 12 0 0 1 0 -16 l-22 -16" stroke="#7E57C2" stroke-width="8" fill="none" stroke-linecap="round"/>' +
+      '<circle cx="12" cy="26" r="7" fill="#B39DDB"' + O(3) + '/>' +
+      '<path d="M24 44 l52 -8 M88 34 l6 -10" stroke="#4A3728" stroke-width="5" stroke-linecap="round"/>' +
+      '<rect x="26" y="52" width="20" height="14" rx="4" fill="#F0C9A0"' + O(3) + '/>' +
+      '<rect x="50" y="58" width="10" height="8" rx="3" fill="#F0C9A0"' + O(2.5) + '/>' +
+      '<path d="M30 55 l6 -4" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>' +
+      '<circle cx="90" cy="63" r="3.5" fill="#FFE082"' + O(2) + '/>' +
+      '<path d="M50 80 h22 l-6 12 h-10 Z" fill="#8E24AA"' + O(3) + ' stroke-linejoin="round"/>' }
+  ];
 
   function catalogMap(arr) {
     var m = {};
