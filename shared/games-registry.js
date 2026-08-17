@@ -48,6 +48,13 @@
       maxStars: 8,
       path: 'games/ketuk-bola/index.html',
       icon: '<svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="14" cy="30" r="11" fill="#E53935" stroke="#4A3728" stroke-width="2"/><circle cx="36" cy="14" r="11" fill="#1E88E5" stroke="#4A3728" stroke-width="2"/><circle cx="32" cy="38" r="11" fill="#F9A825" stroke="#4A3728" stroke-width="2"/></svg>'
+    },
+    {
+      id: 'ikuti-urutan',
+      name: 'Ikuti Urutan',
+      maxStars: 8,
+      path: 'games/ikuti-urutan/index.html',
+      icon: '<svg viewBox="0 0 48 48" aria-hidden="true"><rect x="4" y="4" width="20" height="20" rx="3" fill="#E53935" stroke="#4A3728" stroke-width="2"/><rect x="24" y="4" width="20" height="20" rx="3" fill="#1E88E5" stroke="#4A3728" stroke-width="2"/><rect x="4" y="24" width="20" height="20" rx="3" fill="#F9A825" stroke="#4A3728" stroke-width="2"/><rect x="24" y="24" width="20" height="20" rx="3" fill="#43A047" stroke="#4A3728" stroke-width="2"/></svg>'
     }
   ];
   return { GAMES: GAMES };

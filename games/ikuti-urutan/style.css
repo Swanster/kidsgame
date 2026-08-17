@@ -1,0 +1,190 @@
+/* style.css */
+:root {
+  --bg: #FFF3E0;
+  --card: #FFFFFF;
+  --ink: #6D4C41;
+  --accent: #FF9F43;
+  --accent-dark: #E07B1F;
+  --ok: #6FBF44;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { height: 100%; }
+
+body {
+  font-family: "Comic Sans MS", "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 20px;
+}
+
+.hidden { display: none !important; }
+
+.title { font-size: 2rem; color: var(--accent-dark); text-align: center; }
+.subtitle { font-size: 1.3rem; text-align: center; }
+
+.btn-big {
+  font-size: 1.8rem;
+  font-family: inherit;
+  padding: 18px 44px;
+  border: none;
+  border-radius: 60px;
+  background: var(--accent);
+  color: #fff;
+  min-height: 96px;
+  box-shadow: 0 6px 0 var(--accent-dark);
+  cursor: pointer;
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+}
+.btn-big:active {
+  transform: translateY(5px);
+  box-shadow: 0 1px 0 var(--accent-dark);
+}
+
+.btn-sound {
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  width: 96px;
+  height: 96px;
+  border: none;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(109, 76, 65, 0.2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-sound svg { width: 52px; height: 52px; }
+
+/* Round screen */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  background: #fff;
+  border-radius: 24px;
+  padding: 10px 22px;
+  box-shadow: 0 4px 12px rgba(109, 76, 65, 0.15);
+  width: 100%;
+  max-width: 640px;
+}
+.round-label { font-size: 1.5rem; font-weight: bold; color: var(--accent-dark); }
+.progress-label { font-size: 1.4rem; font-weight: bold; color: var(--ink); }
+
+/* Status line */
+.status {
+  font-size: 1.6rem;
+  font-weight: bold;
+  background: #fff;
+  border-radius: 24px;
+  padding: 12px 28px;
+  box-shadow: 0 4px 12px rgba(109, 76, 65, 0.15);
+  text-align: center;
+  min-height: 3.4rem;
+  display: flex;
+  align-items: center;
+  animation: pop 0.25s ease;
+}
+
+/* Pads */
+.pads {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 640px;
+  padding: 8px;
+}
+.pad {
+  width: 140px;
+  height: 140px;
+  min-width: 140px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  border-radius: 18px;
+  transition: transform 0.12s ease, filter 0.12s ease;
+}
+.pad svg { width: 100%; height: 100%; display: block; }
+.pad:active { transform: translateY(4px); }
+.pad.lit {
+  filter: brightness(1.3);
+  transform: scale(1.04);
+  box-shadow: 0 0 24px rgba(255, 255, 255, 0.8), 0 6px 0 rgba(0, 0, 0, 0.25);
+}
+.pad.shake { animation: shake 0.45s ease; }
+.pad.dim { opacity: 0.6; }
+
+@keyframes pop {
+  from { transform: scale(0.7); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-8px); }
+  50% { transform: translateX(8px); }
+  75% { transform: translateX(-5px); }
+}
+
+/* Celebrate overlay */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 243, 224, 0.94);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  z-index: 10;
+  animation: pop 0.3s ease;
+}
+.celebrate-msg { font-size: 2.2rem; color: var(--accent-dark); text-align: center; }
+.confetti {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.confetti i {
+  position: absolute;
+  top: -20px;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  animation: fall linear forwards;
+}
+@keyframes fall {
+  to { transform: translateY(105vh) rotate(720deg); }
+}
+
+/* End screen */
+.stars {
+  display: flex;
+  gap: 10px;
+  font-size: 2.6rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.star { opacity: 0.22; filter: grayscale(1); }
+.star.filled { opacity: 1; filter: none; }
+.end-title { font-size: 2rem; color: var(--accent-dark); }
