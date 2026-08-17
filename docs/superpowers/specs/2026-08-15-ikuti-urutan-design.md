@@ -28,7 +28,7 @@
 1. `#btn-start` (pointerdown; `GameAudio.unlock()`): ronde 1, `nextRound()`.
 2. `nextRound()`: `round = Simon.makeSequence(SEQUENCE_LENGTHS[roundIndex])` → label ronde → render('round') → status "Perhatikan lampu ya..." → TTS "Perhatikan!" → **demo**: untuk tiap warna urutan: pad `.lit` 650ms + `fx('ding')`, off 250ms. Selama demo: semua pad non-interaktif (lock).
 3. Setelah demo → status "Sekarang giliranmu!" + TTS "Ayo ulangi!" → ketukan anak (pad lock 350ms per ketukan, lampu singkat 200ms + `fx('ding')`).
-   - **Benar** (warna == urutan[posisi]): posisi++; status/ligtht; jika `isRoundDone(posisi, len)` → `finishRound()`.
+   - **Benar** (warna == urutan[posisi]): lampu singkat 200ms + `fx('ding')`; posisi++; progress label naik ke `(posisi+1)/panjang`; jika `isRoundDone(posisi, len)` → `finishRound()`.
    - **Salah**: `fx('wrong')` + shake 450ms + status/"Coba lagi!" — **posisi TETAP, urutan tidak diulang** (tidak ada penalti; tidak mungkin macet; konsisten pola Puzzle G5 "salah = shake + barang tetap").
 4. `finishRound()`: stars++, cheer + "Hebat!" → ronde 1–7: `showCelebrate()` ("Yeay! 🎉" + confetti) → `#btn-celebrate` ("Lanjut!") → roundIndex++ → nextRound. Ronde 8: render('end').
 5. `renderEnd()`: clearTimeout(returnTimer) SEBELUM apapun → render 8 bintang → `addScore` → `setTimeout(backToDashboard, 6000)` → title tiered: 8 "Sempurna! 🌟" / ≥5 "Hebat sekali!" / ≥3 "Mantap!" / <3 "Ayo coba lagi!".
@@ -48,10 +48,12 @@ matches(tap, expected) -> bool
 isRoundDone(placed, len) -> bool (len > 0 && placed >= len)
 ```
 - `makeSequence(len)`: array `len` warna diacak dari 4 — **pengulangan diperbolehkan** (Simon klasik); tiap elemen adalah id pad yang valid.
-- `padSVG(colorId)`: pad berbentuk persegi membulat penuh (`<svg viewBox="0 0 48 48" role="img" aria-label="Pad {Nama}">`) — body `<rect x=1 y=1 width=46 height=46 rx=10 fill={hex} stroke="#4A3728" stroke-width="2">` + **bentuk identitas putih di tengah** sesuai `shape` (circle: `<circle cx=24 cy=24 r=10 fill="#fff">`; square: `<rect x=15 y=15 width=18 height=18 rx=2 fill="#fff">`; triangle: `<polygon points="24,13 35,34 13,34" fill="#fff">`; star: path bintang 5 sudut putih) — arsir `id`/padun; warna tak dikenal → null.
+- `padSVG(colorId)`: pad berbentuk persegi membulat penuh (`<svg viewBox="0 0 48 48" role="img" aria-label="Pad {Nama}">`) — body `<rect x=1 y=1 width=46 height=46 rx=10 fill={hex} stroke="#4A3728" stroke-width="2">` + **bentuk identitas putih di tengah** sesuai `shape` (circle: `<circle cx=24 cy=24 r=10 fill="#fff">`; square: `<rect x=15 y=15 width=18 height=18 rx=2 fill="#fff">`; triangle: `<polygon points="24,13 35,34 13,34" fill="#fff">`; star: `<path d="…bintang 5 sudut…" fill="#fff">`); warna tak dikenal → null.
+- **Posisi pad di grid `#pads` = urutan `PADS`** (iterasi langsung): red kiri-atas, blue kanan-atas, yellow kiri-bawah, green kanan-bawah — konsisten untuk semua ronde.
 
 ## 6. Detail Visual & Interaksi
-- Pad: 140×140px fixed (≥96 amanat), `border-radius 18px`, bayangan bawah 6px (efek 3D), `transition transform .12s`; `.pad:active` sedikit tenggelam; `.pad.lit { filter: brightness(1.3); transform: scale(1.04); box-shadow: 0 0 24px rgba(255,255,255,.8), 0 6px 0 rgba(0,0,0,.25); }`; `.pad.shake { animation: shake .45s ease }` (keyframes identik keluarga game); `.pad:disabled` saat demo (status "menunggu" via class `.locked`).
+- Pad: 140×140px fixed (≥96 amanat), `border-radius 18px`, bayangan bawah 6px (efek 3D), `transition transform .12s`; `.pad:active` sedikit tenggelam; `.pad.lit { filter: brightness(1.3); transform: scale(1.04); box-shadow: 0 0 24px rgba(255,255,255,.8), 0 6px 0 rgba(0,0,0,.25); }`; `.pad.shake { animation: shake .45s ease }` (keyframes identik keluarga game); `.pad.dim { opacity: .6 }` (visual saat lock).
+- **Lock semata-mata via state machine di game.js** (`state.lock = true` saat demo & jeda 350ms; handler `onPadTap` return early bila lock atau layar bukan 'round') — pad TIDAK di-`disabled` (tombol disabled tidak boleh dipakai; pola balls.js).
 - Grid `#pads`: flex, wrap center, gap 16px, max-width 640px; di 360×640: 2 pad/baris (140+140+16 = 296 ≤ 360) ✓.
 - Status `#status`: font 1.6rem, tebal, warnanya hangat; progress label seperti game lain.
 - Skema warna: keluarga game (bg #FFF3E0, aksen #FF9F43/#E07B1F, tinta #6D4C41) — konsistensi dashboard.
