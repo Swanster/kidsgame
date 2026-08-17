@@ -888,6 +888,10 @@ function assert(cond, msg) {
   if (!cond) { console.error('ASSERT FAIL:', msg); process.exitCode = 1; }
 }
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+// Game bind `pointerdown` (bukan `click`) — `.click()` tidak memicu handler.
+// Gunakan tap(): dispatch PointerEvent bubbling di sisi halaman.
+// (Koreksi dari verifikasi Task 6: skrip versi awal memakai .click() dan gagal di semua fase.)
+const tap = (el) => el.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, pointerType: 'mouse' }));
 
 class Tab {
   constructor(ws, id) {
@@ -951,7 +955,7 @@ const GAMES = [
   {
     name: 'temukan-hewan', url: 'games/temukan-hewan/index.html',
     run: async (tab) => {
-      await tab.eval(`document.getElementById('btn-start').click()`);
+      await tab.eval(`tap(document.getElementById('btn-start'))`);
       const r = await tab.eval(`(() => {
         const svgs = document.querySelectorAll('#grid svg');
         return { n: svgs.length, a2: svgs[0] ? svgs[0].outerHTML.includes('#5A4630') : false,
@@ -965,7 +969,7 @@ const GAMES = [
   {
     name: 'puzzle-hewan', url: 'games/puzzle-hewan/index.html',
     run: async (tab) => {
-      await tab.eval(`document.getElementById('btn-start').click()`);
+      await tab.eval(`tap(document.getElementById('btn-start'))`);
       const r = await tab.eval(`(() => {
         const piece = document.querySelector('#piece-big svg');
         return { slots: document.querySelectorAll('#grid > *').length,
@@ -980,10 +984,10 @@ const GAMES = [
   {
     name: 'memory-match', url: 'games/memory-match/index.html',
     run: async (tab) => {
-      await tab.eval(`document.getElementById('btn-start').click()`);
+      await tab.eval(`tap(document.getElementById('btn-start'))`);
       const n = await tab.eval(`document.querySelectorAll('#board > *').length`);
       assert(n >= 4, 'memory-match: papan kartu kosong (' + n + ')');
-      await tab.eval(`document.querySelector('#board > *').click()`);
+      await tab.eval(`tap(document.querySelector('#board > *'))`);
       await sleep(300);
       const svgs = await tab.eval(`document.querySelectorAll('#board svg').length`);
       assert(svgs >= 1, 'memory-match: kartu terbuka tanpa svg');
