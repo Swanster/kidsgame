@@ -21,7 +21,7 @@
 - **Kemasan SVG per game dipertahankan**: `Animals.ANIMALS[].svg` diawali `<g>` dan diakhiri `</g>` (test lama menuntut); `Puzzle.IMAGES[].svg` & `VEHICLES[].svg` TANPA bungkus `<svg>`/`<g>` (test lama menuntut).
 - **`shared/art.js` = modul baru**; `shared/audio.js` = satu-satunya file `shared/` lain yang berubah. `profile.js`, `games-registry.js`, `avatars.js` TIDAK disentuh.
 - Halaman 3 game: tambah satu `<script src="../../shared/art.js">` **sebelum** file data; urutan script lain tidak berubah.
-- Rendering tetap: game.js memasukkan `svg` ke wrapper `<svg viewBox="0 0 120 120">` yang ada (puzzle: memotong svg utuh jadi keping — konten baru tidak mengubah mekanik).
+- Rendering tetap: game.js memasukkan `svg` ke wrapper `<svg viewBox="0 0 120 120">` yang ada. Khusus puzzle: `buildGrid()` meletakkan **SVG utuh** di tiap slot kosong; potongan (tray & slot terisi) memakai `Puzzle.pieceSVG()` yang menggeser area aset sesuai potongan — konten baru mengalir lewat string `svg` yang sama; mekanik & `pieceSVG` TIDAK berubah.
 
 ## 4. Arsitektur & Komponen
 ```
@@ -76,7 +76,7 @@ if (!Art) throw new Error('shared/art.js harus dimuat sebelum file ini');
 ## 8. Suara (`shared/audio.js`)
 - `pickIdVoice(voices)` → skor bertingkat: **[Google] id-ID bernama** (name mengandung 'Google') → **Microsoft id-ID** → id-ID apa pun → `id` bare → `null`. Urutan fallback lama (id-ID penuh lalu `id`) TETAP untuk voice tanpa nama.
 - Utterance: `lang='id-ID'`, `rate 0.85`, `pitch 1.1`, `volume 1`; `synth.cancel()` sebelum speak.
-- FX: kind baru `'party'` = arpeggio naik 4 nada (mis. 523→659→784→1047, sine, bergantian), dipakai untuk kemenangan. Kind lama (ding/wrong/pop/cheer) tidak berubah.
+- FX: kind baru `'party'` = arpeggio naik 4 nada (mis. 523→659→784→1047, sine, bergantian). **Tiga game cakupan** mengganti `fx('cheer')` di situs kemenangan `finishRound()` menjadi `fx('party')` (1 baris per game) — semantik pemanggilan TIDAK berubah: di puzzle-hewan & memory-match situs itu hanya menyala pada ronde non-final (ronde terakhir langsung `render('end')`, perilaku lama); di temukan-hewan situs itu menyala di SETIAP ronde TERMASUK ronde final (`showCelebrate` ronde 8, perilaku lama). 4 game lain tetap `'cheer'`; kind lama (ding/wrong/pop/cheer) tidak berubah.
 - Teks TTS: TIDAK diubah di game (frase sudah pendek & ramah: "Hebat!", "Coba lagi!", "Perhatikan!", dst.) — komunikasi hangat datang dari voice/pitch/rate.
 
 ## 9. Kontrak API Module
@@ -101,7 +101,7 @@ Art.OUTLINE        → '#5A4630'
 ## 10. Testing
 - **Baseline 68 tes tetap hijau**; satu-satunya file test yang berubah adalah `games/temukan-hewan/tests/audio.test.js` yang bertambah **2 blok (additif)** — asersi lama tidak disentuh (id/jumlah/kemasan aset dipertahankan; fixture audio lama tanpa `name` tak terpengaruh scoring).
 - **BARU `shared/tests/art.test.js`**:
-  1. `Art.ANIMALS`: 12 entri, id unik, name non-kosong, `/[a-z]+/`; berisi semua 6 shared + 4 temukan-only + 2 puzzle-only.
+  1. `Art.ANIMALS`: 12 entri, id unik, name non-kosong, cocok `/^[a-z]+(?:-[a-z]+)*$/` (boleh satu hubung antar kata: `kura-kura`; hubung di awal/akhir/ganda ditolak); berisi semua 6 shared + 4 temukan-only + 2 puzzle-only.
   2. `Art.VEHICLES`: 8 entri (car, train, plane, ship, bike, tractor, bus, helicopter), id unik.
   3. Gaya: tiap aset ≥150 char, ≥8 elemen bentuk, tanpa bungkus `<svg>`/`<g>`, mengandung `stroke="#5A4630"`, semua warna ∈ `Art.PALETTE` (bayangan `rgba(0,0,0,…)` dikecualikan).
   4. **Mapping-contract**: semua 10 id temukan + 8 id puzzle (via `SUBJECT_MAP`) + 8 id kendaraan resolve ke aset yang valid — jaminan utama, bukan fallback.
@@ -113,10 +113,9 @@ Art.OUTLINE        → '#5A4630'
 ## 11. Kriteria Acceptance
 1. Suite penuh hijau: **68 baseline + test baru art & audio tetap lulus** — `node --test` dari root, 0 fail.
 2. `shared/art.js` memuat di Node (`require`) DAN browser (script tag) dengan katalog 12 hewan + 8 kendaraan; `Art.FALLBACK` & `Art.PALETTE` ada & tervalidasi test.
-3. 3 game jalan `file://` DAN `http://`: hewan/kendaraan tampil bergaya A-2 (bukan abstrak lama), semua id/ronde/ketuk berfungsi, puzzle tetap terpotong benar, 0 error konsol.
-4. Mapping: 10 id temukan + 8 id puzzle + 8 kendaraan semuanya resolve; subjek tak dikenal → `Art.FALLBACK` + log error (tidak pernah blank).
-
-5. Suara: `pickIdVoice` hasilkan voice bernama Google/Microsoft id-ID bila ada (versus voice generik), `rate 0.85`/`pitch 1.1`; `fx('party')` berbunyi di kemenangan; mute toggle & fallback senyap tetap.
+3. 3 game jalan `file://` DAN `http://`: hewan/kendaraan tampil bergaya A-2 (bukan abstrak lama), semua id/ronde/ketuk berfungsi, puzzle berfungsi (slot kosong menampilkan SVG utuh; potongan via `pieceSVG` benar), 0 error konsol.
+4. Mapping: 10 id temukan + 8 id puzzle + 8 kendaraan semuanya resolve — **jaminan utama lewat test kontrak mapping** (assert resolve + `console.error` via spy untuk id tak dikenal); smoke browser hanya memastikan jalur normal bersih (0 error konsol) & tidak pernah blank — fallback bukan jalur normal.
+5. Suara: `pickIdVoice` hasilkan voice bernama Google/Microsoft id-ID bila ada (versus voice generik), `rate 0.85`/`pitch 1.1`; **3 game cakupan** memakai `fx('party')` di situs kemenangan yang ada (temukan-hewan: tiap ronde termasuk final; puzzle-hewan & memory-match: ronde non-final saja — perilaku lama dipertahankan); 4 game lain tetap `'cheer'`; mute toggle & fallback senyap tetap.
 6. Anti-regresi: 4 game lain (berhitung, sortir-bentuk-warna, ikuti-urutan, ketuk-bola) TIDAK berubah filenya; id/nama/jumlah aset publik tidak berubah di 3 game yang diadaptor; `shared/` hanya berubah di `art.js` (baru) & `audio.js`.
 
 ## 12. Non-Goals
@@ -139,6 +138,9 @@ games/puzzle-hewan/
 games/memory-match/
   vehicles.js             ← adaptor ke Art.VEHICLES
   index.html              ← + script art.js sebelum vehicles.js
+games/temukan-hewan/game.js    ← situs kemenangan: fx('cheer') → fx('party')
+games/puzzle-hewan/game.js     ← situs kemenangan: fx('cheer') → fx('party')
+games/memory-match/game.js     ← situs kemenangan: fx('cheer') → fx('party')
 shared/audio.js           ← scoring voice + rate/pitch + fx 'party'
 games/temukan-hewan/tests/audio.test.js  ← +2 blok (voice bernama)
 docs/superpowers/specs/2026-08-17-seni-suara-ramah-anak-design.md  ← file ini
