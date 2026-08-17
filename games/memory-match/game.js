@@ -165,7 +165,7 @@
   function finishRound() {
     state.stars++;
     if (state.roundIndex + 1 < TOTAL_ROUNDS) {
-      GameAudio.fx('cheer');
+      GameAudio.fx('party');
       GameAudio.speak(Math.random() < 0.5 ? 'Yeay!' : 'Bagus sekali!');
       showCelebrate();
     } else {

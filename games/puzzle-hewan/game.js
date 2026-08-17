@@ -149,7 +149,7 @@
   function finishRound() {
     state.stars++;
     if (state.roundIndex + 1 < TOTAL_ROUNDS) {
-      GameAudio.fx('cheer');
+      GameAudio.fx('party');
       GameAudio.speak('Hebat! ' + state.board.image.name + ' selesai!');
       showCelebrate();
     } else {

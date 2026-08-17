@@ -90,3 +90,16 @@ test('isRoundDone boundaries', () => {
   assert.strictEqual(Puzzle.isRoundDone(5, 4), true, 'over-place tidak merusak');
   assert.strictEqual(Puzzle.isRoundDone(0, 0), false, 'count 0 bukan ronde sah');
 });
+
+test('SUBJECT_MAP: 8 id puzzle terpetakan ke subjek yang ada di shared art', () => {
+  const Art = require('../../../shared/art.js');
+  const ids = new Set(Art.ANIMALS.map(a => a.id));
+  for (const [p, s] of Object.entries(Puzzle.SUBJECT_MAP)) {
+    assert.ok(ids.has(s), 'subjek tak dikenal: ' + s);
+    assert.strictEqual(Art.animalSvg(s), Art.ANIMALS.find(a => a.id === s).svg, 'svg ter-resolve: ' + s);
+  }
+  assert.deepStrictEqual(Puzzle.SUBJECT_MAP, {
+    cat: 'kucing', dog: 'anjing', elephant: 'gajah', rabbit: 'kelinci',
+    duck: 'bebek', fish: 'ikan', bird: 'burung', turtle: 'kura-kura'
+  });
+});
