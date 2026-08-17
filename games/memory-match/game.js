@@ -129,7 +129,7 @@
 
   function faceOf(card) {
     var v = Vehicles[card.pair];
-    return '<svg viewBox="0 0 48 48" role="img" aria-label="' + v.name + '">' + v.svg + '</svg>';
+    return '<svg viewBox="0 0 120 120" role="img" aria-label="' + v.name + '">' + v.svg + '</svg>';
   }
 
   function checkPair() {

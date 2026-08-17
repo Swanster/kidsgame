@@ -462,7 +462,7 @@ Ganti deklarasi seed `var ANIMALS = [...];` (dibuat Task 1, dipertahankan Task 2
     { id: 'singa', name: 'Singa', group: 'feline', svg:
       groundShadow(60, 112, 40) +
       '<circle cx="60" cy="62" r="40" fill="#E08A2E"' + O(5) + '/>' +
-      '<path d="M34 30 l-8 -12 M52 24 l-3 -14 M66 24 l-3 14 M84 30 l8 -12" stroke="#E08A2E" stroke-width="5" stroke-linecap="round"/>' +
+      '<path d="M34 30 l-8 -12 M52 24 l-3 -14 M66 24 l3 -14 M84 30 l8 -12" stroke="#E08A2E" stroke-width="5" stroke-linecap="round"/>' +
       '<circle cx="60" cy="62" r="30" fill="#F0C060"' + O(5) + '/>' +
       '<ellipse cx="34" cy="34" rx="5" ry="8" fill="#E08A2E"' + O(2.5) + ' transform="rotate(-15 34 34)"/>' +
       '<ellipse cx="86" cy="34" rx="5" ry="8" fill="#E08A2E"' + O(2.5) + ' transform="rotate(15 86 34)"/>' +
@@ -647,6 +647,11 @@ test('pickIdVoice prefers Google over Microsoft over generic, all id-ID', () => 
     { lang: 'id-ID', name: 'Google Bahasa Indonesia' }
   ];
   assert.strictEqual(GameAudio.pickIdVoice(voices), voices[2]);
+});
+
+test('pickIdVoice prefers Microsoft over generic when no Google, all id-ID', () => {
+  const voices = [{ lang: 'id-ID' }, { lang: 'id-ID', name: 'Microsoft Ardi' }];
+  assert.strictEqual(GameAudio.pickIdVoice(voices), voices[1]);
 });
 ```
 
@@ -991,6 +996,12 @@ const GAMES = [
       await sleep(300);
       const svgs = await tab.eval(`document.querySelectorAll('#board svg').length`);
       assert(svgs >= 1, 'memory-match: kartu terbuka tanpa svg');
+      const a2 = await tab.eval(`(() => {
+        const sv = document.querySelector('#board svg[role="img"]');
+        return sv ? { a2: sv.outerHTML.includes('#5A4630'), vb: sv.getAttribute('viewBox') } : null;
+      })()`);
+      assert(a2 && a2.a2, 'memory-match: opened card tanpa seni A-2 (#5A4630)');
+      assert(a2 && a2.vb === '0 0 120 120', 'memory-match: opened card viewBox bukan 0 0 120 120');
     }
   }
 ];

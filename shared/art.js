@@ -108,7 +108,7 @@
     { id: 'singa', name: 'Singa', group: 'feline', svg:
       groundShadow(60, 112, 40) +
       '<circle cx="60" cy="62" r="40" fill="#E08A2E"' + O(5) + '/>' +
-      '<path d="M34 30 l-8 -12 M52 24 l-3 -14 M66 24 l-3 14 M84 30 l8 -12" stroke="#E08A2E" stroke-width="5" stroke-linecap="round"/>' +
+      '<path d="M34 30 l-8 -12 M52 24 l-3 -14 M66 24 l3 -14 M84 30 l8 -12" stroke="#E08A2E" stroke-width="5" stroke-linecap="round"/>' +
       '<circle cx="60" cy="62" r="30" fill="#F0C060"' + O(5) + '/>' +
       '<ellipse cx="34" cy="34" rx="5" ry="8" fill="#E08A2E"' + O(2.5) + ' transform="rotate(-15 34 34)"/>' +
       '<ellipse cx="86" cy="34" rx="5" ry="8" fill="#E08A2E"' + O(2.5) + ' transform="rotate(15 86 34)"/>' +

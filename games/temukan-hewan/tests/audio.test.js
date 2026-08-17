@@ -31,3 +31,8 @@ test('pickIdVoice prefers Google over Microsoft over generic, all id-ID', () => 
   ];
   assert.strictEqual(GameAudio.pickIdVoice(voices), voices[2]);
 });
+
+test('pickIdVoice prefers Microsoft over generic when no Google, all id-ID', () => {
+  const voices = [{ lang: 'id-ID' }, { lang: 'id-ID', name: 'Microsoft Ardi' }];
+  assert.strictEqual(GameAudio.pickIdVoice(voices), voices[1]);
+});
