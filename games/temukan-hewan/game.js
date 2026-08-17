@@ -124,7 +124,7 @@
 
   function finishRound() {
     state.stars += state.perfect ? 1 : 0;
-    GameAudio.fx('cheer');
+    GameAudio.fx('party');
     GameAudio.speak(Math.random() < 0.5 ? 'Yeay!' : 'Bagus sekali!');
     showCelebrate();
   }

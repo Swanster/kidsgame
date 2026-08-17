@@ -17,9 +17,14 @@
   function pickIdVoice(voices) {
     if (!voices || !voices.length) return null;
     var full = voices.filter(function (v) { return /^id-/.test(v.lang || ''); });
-    if (full.length) return full[0];
     var bare = voices.filter(function (v) { return (v.lang || '') === 'id'; });
-    return bare[0] || null;
+    var pool = full.length ? full : bare;
+    if (!pool.length) return null;
+    var google = pool.filter(function (v) { return /Google/i.test(v.name || ''); });
+    if (google.length) return google[0];
+    var ms = pool.filter(function (v) { return /Microsoft/i.test(v.name || ''); });
+    if (ms.length) return ms[0];
+    return pool[0];
   }
 
   function primeVoices() {
@@ -64,7 +69,8 @@
       u.lang = 'id-ID';
       var voice = pickIdVoice(voices);
       if (voice) u.voice = voice;
-      u.rate = 0.9;
+      u.rate = 0.85;
+      u.pitch = 1.1;
       synth.cancel(); // buang antrian macet (bug antrian Chrome)
       synth.speak(u);
     } catch (e) { /* silent */ }
@@ -104,6 +110,12 @@
           tone(523, 0.18, 'sine', 0.2, 0);
           tone(659, 0.18, 'sine', 0.2, 0.14);
           tone(784, 0.3, 'sine', 0.22, 0.28);
+          break;
+        case 'party':
+          tone(523, 0.18, 'sine', 0.2, 0);
+          tone(659, 0.18, 'sine', 0.2, 0.14);
+          tone(784, 0.18, 'sine', 0.2, 0.28);
+          tone(1047, 0.35, 'sine', 0.22, 0.42);
           break;
       }
     }).catch(function () { /* silent */ });

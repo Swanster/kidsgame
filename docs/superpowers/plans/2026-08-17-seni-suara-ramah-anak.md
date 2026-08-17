@@ -462,7 +462,7 @@ Ganti deklarasi seed `var ANIMALS = [...];` (dibuat Task 1, dipertahankan Task 2
     { id: 'singa', name: 'Singa', group: 'feline', svg:
       groundShadow(60, 112, 40) +
       '<circle cx="60" cy="62" r="40" fill="#E08A2E"' + O(5) + '/>' +
-      '<path d="M34 30 l-8 -12 M52 24 l-3 -14 M66 24 l-3 14 M84 30 l8 -12" stroke="#E08A2E" stroke-width="5" stroke-linecap="round"/>' +
+      '<path d="M34 30 l-8 -12 M52 24 l-3 -14 M66 24 l3 -14 M84 30 l8 -12" stroke="#E08A2E" stroke-width="5" stroke-linecap="round"/>' +
       '<circle cx="60" cy="62" r="30" fill="#F0C060"' + O(5) + '/>' +
       '<ellipse cx="34" cy="34" rx="5" ry="8" fill="#E08A2E"' + O(2.5) + ' transform="rotate(-15 34 34)"/>' +
       '<ellipse cx="86" cy="34" rx="5" ry="8" fill="#E08A2E"' + O(2.5) + ' transform="rotate(15 86 34)"/>' +
@@ -647,6 +647,11 @@ test('pickIdVoice prefers Google over Microsoft over generic, all id-ID', () => 
     { lang: 'id-ID', name: 'Google Bahasa Indonesia' }
   ];
   assert.strictEqual(GameAudio.pickIdVoice(voices), voices[2]);
+});
+
+test('pickIdVoice prefers Microsoft over generic when no Google, all id-ID', () => {
+  const voices = [{ lang: 'id-ID' }, { lang: 'id-ID', name: 'Microsoft Ardi' }];
+  assert.strictEqual(GameAudio.pickIdVoice(voices), voices[1]);
 });
 ```
 
@@ -888,6 +893,10 @@ function assert(cond, msg) {
   if (!cond) { console.error('ASSERT FAIL:', msg); process.exitCode = 1; }
 }
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+// Game bind `pointerdown` (bukan `click`) — `.click()` tidak memicu handler.
+// Gunakan tap(): dispatch PointerEvent bubbling di sisi halaman.
+// (Koreksi dari verifikasi Task 6: skrip versi awal memakai .click() dan gagal di semua fase.)
+const tap = (el) => el.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, pointerType: 'mouse' }));
 
 class Tab {
   constructor(ws, id) {
@@ -951,7 +960,7 @@ const GAMES = [
   {
     name: 'temukan-hewan', url: 'games/temukan-hewan/index.html',
     run: async (tab) => {
-      await tab.eval(`document.getElementById('btn-start').click()`);
+      await tab.eval(`tap(document.getElementById('btn-start'))`);
       const r = await tab.eval(`(() => {
         const svgs = document.querySelectorAll('#grid svg');
         return { n: svgs.length, a2: svgs[0] ? svgs[0].outerHTML.includes('#5A4630') : false,
@@ -965,7 +974,7 @@ const GAMES = [
   {
     name: 'puzzle-hewan', url: 'games/puzzle-hewan/index.html',
     run: async (tab) => {
-      await tab.eval(`document.getElementById('btn-start').click()`);
+      await tab.eval(`tap(document.getElementById('btn-start'))`);
       const r = await tab.eval(`(() => {
         const piece = document.querySelector('#piece-big svg');
         return { slots: document.querySelectorAll('#grid > *').length,
@@ -980,13 +989,19 @@ const GAMES = [
   {
     name: 'memory-match', url: 'games/memory-match/index.html',
     run: async (tab) => {
-      await tab.eval(`document.getElementById('btn-start').click()`);
+      await tab.eval(`tap(document.getElementById('btn-start'))`);
       const n = await tab.eval(`document.querySelectorAll('#board > *').length`);
       assert(n >= 4, 'memory-match: papan kartu kosong (' + n + ')');
-      await tab.eval(`document.querySelector('#board > *').click()`);
+      await tab.eval(`tap(document.querySelector('#board > *'))`);
       await sleep(300);
       const svgs = await tab.eval(`document.querySelectorAll('#board svg').length`);
       assert(svgs >= 1, 'memory-match: kartu terbuka tanpa svg');
+      const a2 = await tab.eval(`(() => {
+        const sv = document.querySelector('#board svg[role="img"]');
+        return sv ? { a2: sv.outerHTML.includes('#5A4630'), vb: sv.getAttribute('viewBox') } : null;
+      })()`);
+      assert(a2 && a2.a2, 'memory-match: opened card tanpa seni A-2 (#5A4630)');
+      assert(a2 && a2.vb === '0 0 120 120', 'memory-match: opened card viewBox bukan 0 0 120 120');
     }
   }
 ];
