@@ -15,7 +15,7 @@
 - Id hewan cocok `/^[a-z]+(?:-[a-z]+)*$/` (`kura-kura` diperbolehkan; tanpa hubung ganda/awal/akhir).
 - Id & nama publik game TIDAK berubah; `Animals` svg tetap dibungkus `<g>…</g>`; Puzzle & Vehicles tanpa bungkus.
 - Render tetap via wrapper `<svg viewBox="0 0 120 120">`; puzzle: `buildGrid()` menampilkan SVG utuh di slot kosong, `pieceSVG()` untuk potongan — mekanik TIDAK berubah.
-- Baseline **68 tes** tetap hijau; satu-satunya file test yang berubah = `games/temukan-hewan/tests/audio.test.js` (+2 blok additif).
+- Baseline **68 tes** tetap hijau; file test yang berubah = `games/temukan-hewan/tests/audio.test.js` (+2 blok additif) DAN `games/puzzle-hewan/tests/puzzle.test.js` (+1 blok additif `SUBJECT_MAP`, Task 5). `shared/tests/art.test.js` baru (Task 1).
 - Game jalan offline (`file://`) DAN `http://`; tanpa aset eksternal; tanpa perubahan `profile.js`/`games-registry.js`/`avatars.js`.
 - Header UMD adaptor TIDAK berubah (`module.exports = factory()` / `root.X = factory()` — `factory()` TANPA argumen, `root` TIDAK dalam lexical scope factory). Pengambilan `Art` di dalam factory memakai `(typeof module === 'object' && module.exports) ? require('../../shared/art.js') : (typeof self !== 'undefined' ? self : globalThis).Art` — JANGAN pakai `root.Art` (ReferenceError di browser).
 - Konvensi commit: `feat:`/`refactor:`/`docs:` sesuai isi, pesan singkat Bahasa Inggris (pola repo).
