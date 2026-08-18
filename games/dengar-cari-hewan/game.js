@@ -85,13 +85,20 @@
   function renderGrid() {
     els.grid.innerHTML = '';
     state.session[state.roundIndex].choices.forEach(function (id) {
-      var el = document.createElement('div');
+      var el = document.createElement('button');
+      el.type = 'button';
       el.className = 'card';
       el.dataset.animalId = id;
       el.innerHTML = svgOf(id);
       el.addEventListener('pointerdown', function (ev) {
         ev.preventDefault();
         onCardTap(el, id);
+      });
+      el.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Enter' || ev.key === ' ') {
+          ev.preventDefault();
+          onCardTap(el, id);
+        }
       });
       els.grid.appendChild(el);
     });
