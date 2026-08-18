@@ -55,6 +55,13 @@
       maxStars: 8,
       path: 'games/ikuti-urutan/index.html',
       icon: '<svg viewBox="0 0 48 48" aria-hidden="true"><rect x="4" y="4" width="20" height="20" rx="3" fill="#E53935" stroke="#4A3728" stroke-width="2"/><rect x="24" y="4" width="20" height="20" rx="3" fill="#1E88E5" stroke="#4A3728" stroke-width="2"/><rect x="4" y="24" width="20" height="20" rx="3" fill="#F9A825" stroke="#4A3728" stroke-width="2"/><rect x="24" y="24" width="20" height="20" rx="3" fill="#43A047" stroke="#4A3728" stroke-width="2"/></svg>'
+    },
+    {
+      id: 'dengar-cari-hewan',
+      name: 'Dengar & Cari Hewan',
+      maxStars: 8,
+      path: 'games/dengar-cari-hewan/index.html',
+      icon: '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M6 18 h8 l10 -8 v28 l-10 -8 h-8 Z" fill="none" stroke="#1E88E5" stroke-width="4" stroke-linejoin="round"/><path d="M30 18 a8 8 0 0 1 0 12" fill="none" stroke="#F9A825" stroke-width="4" stroke-linecap="round"/><path d="M35 13 a15 15 0 0 1 0 22" fill="none" stroke="#F9A825" stroke-width="4" stroke-linecap="round"/></svg>'
     }
   ];
   return { GAMES: GAMES };

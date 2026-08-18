@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dengar &amp; Cari Hewan 🎧</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <section id="menu" class="screen">
+    <h1 class="title">Dengar &amp; Cari Hewan 🎧</h1>
+    <p class="subtitle">Dengarkan, lalu ketuk hewannya!</p>
+    <button id="btn-start" class="btn-big">Main Yuk!</button>
+    <button id="btn-sound" class="btn-sound" aria-label="Suara">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16 8a5 5 0 0 1 0 8" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M18.5 5.5a9 9 0 0 1 0 13" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+    </button>
+  </section>
+
+  <section id="round-screen" class="screen hidden">
+    <button id="btn-prompt" class="btn-prompt" aria-label="Ulangi suara">🔊</button>
+    <main id="grid" class="grid"></main>
+  </section>
+
+  <div id="celebrate" class="overlay hidden">
+    <div id="confetti" class="confetti"></div>
+    <p id="celebrate-msg" class="celebrate-msg">Yeay! 🎉</p>
+    <button id="btn-celebrate" class="btn-big">Lanjut!</button>
+  </div>
+
+  <section id="end-screen" class="screen hidden">
+    <h2 id="end-title" class="end-title">Selesai!</h2>
+    <div id="stars" class="stars"></div>
+    <button id="btn-again" class="btn-big">Lainnya?</button>
+  </section>
+
+  <script src="../../shared/art.js"></script>
+  <script src="dengar.js"></script>
+  <script src="../../shared/audio.js"></script>
+  <script src="../../shared/profile.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
