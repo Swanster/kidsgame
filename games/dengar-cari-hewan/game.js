@@ -30,6 +30,14 @@
       (animal ? animal.svg : Art.animalSvg(id)) + '</svg>';
   }
 
+  function bindKeyboardActivation(id, action) {
+    $(id).addEventListener('keydown', function (event) {
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+      event.preventDefault();
+      action();
+    });
+  }
+
   function init() {
     els.menu = $('menu');
     els.roundScreen = $('round-screen');
@@ -43,6 +51,11 @@
     $('btn-celebrate').addEventListener('pointerdown', continueAfterCelebrate);
     $('btn-sound').addEventListener('pointerdown', toggleSound);
     $('btn-prompt').addEventListener('pointerdown', repeatPrompt);
+    bindKeyboardActivation('btn-start', startSession);
+    bindKeyboardActivation('btn-sound', toggleSound);
+    bindKeyboardActivation('btn-prompt', repeatPrompt);
+    bindKeyboardActivation('btn-celebrate', continueAfterCelebrate);
+    bindKeyboardActivation('btn-again', startSession);
     render('menu');
   }
 
